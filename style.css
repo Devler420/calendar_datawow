@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Quicksand", sans-serif;
+}
+
+.heading {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    height: auto;
+    padding-top: 4rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.calendar-container {
+    width: 30rem;
+    height: 30rem;
+    background-color: red;
+}
+
+.year {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: lightpink;
+}
+
+.month {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    background-color: lightgreen;
+}
+
+.weekdays {
+    width: 100%;
+    display: flex;
+    justify-content: flex;
+    align-items: center;
+    padding: 0.5rem 0rem;
+    background-color: lightyellow;
+}
+
+.weekdays div {
+    width: 4.28rem;
+    display: flex;
+    padding: 0.5rem 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.days {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+    background-color: aqua;
+}
+
+.days div {
+    font-size: 1.5rem;
+    width: 4.28rem;
+    display: flex;
+    padding: 0.5rem 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.today {
+    background-color: lightgreen;
+}
+
+.add-event {
+    width: 100%;
+    padding-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-event button:hover {
+    cursor: pointer;
+}
+
+.weekdays div:hover {
+    border: 0.1rem solid black;
+    cursor: pointer;
+}
+
+.month div:hover {
+    border: 0.1rem solid black;
+    cursor: pointer;
+}
+
+.days div:hover:not(.today) {
+    /* background-color: blue; */
+    border: 0.1rem solid black;
+    cursor: pointer;
+}
+
+.prev-date, .next-date {
+    opacity: 0.5;
+}
+
+.event-container {
+    width: 30rem;
+    height: 30rem;
+    display: inline-flex;
+    background-color: lightblue;
+}
