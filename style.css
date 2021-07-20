@@ -79,7 +79,7 @@
     align-items: center;
 }
 
-.today {
+.today , .selected-date {
     background-color: lightgreen;
 }
 
@@ -92,11 +92,6 @@
 }
 
 .add-event button:hover {
-    cursor: pointer;
-}
-
-.weekdays div:hover {
-    border: 0.1rem solid black;
     cursor: pointer;
 }
 
@@ -120,4 +115,14 @@
     height: 30rem;
     display: inline-flex;
     background-color: lightblue;
+}
+
+/* /////////////////////////////////RIGHT SIDE CONTAINER SECTION///////////////////////////////////////////// */
+
+.full-date {
+    font-size: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
