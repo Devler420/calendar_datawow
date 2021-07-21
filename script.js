@@ -35,7 +35,7 @@ function loadCalendar() {
     const LastdayofPrevMonth = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
 
     //Display the Year on the left-side container
-    document.querySelector(".year h2").innerHTML = date.getYear()+1900;
+    document.querySelector(".year h1").innerHTML = date.getYear()+1900;
 
     //Display the days of the current month on the left-side container
     const daysInMonth = document.querySelector(".days");
@@ -62,7 +62,6 @@ function loadCalendar() {
         }
     }
     daysInMonth.innerHTML = days;
-
 }
 
 loadCalendar();
@@ -79,20 +78,21 @@ function toNextYear() {
 
 //Change full date according to user's input
 function setdateString() {
-    document.querySelector('.full-date').innerHTML = date.toDateString().substr(3);
+    document.querySelector(".full-date1").innerHTML = date.toDateString().substr(3);
+    document.querySelector('.full-date2').innerHTML = date.toDateString().substr(3);
 }
 
 //Listener for Date selection
 document.querySelector('div.days').addEventListener("click", (event)=> {
     // console.log(event.target.classList.value)
     if(event.target.classList.value == "prev-date") {
-        document.querySelector('.full-date').innerHTML = months[date.getMonth()-1]+" "+event.target.innerHTML+" "+date.getFullYear();
+        document.querySelector('.full-date2').innerHTML = months[date.getMonth()-1]+" "+event.target.innerHTML+" "+date.getFullYear();
     }
     else if(event.target.classList.value == "next-date") {
-        document.querySelector('.full-date').innerHTML = months[date.getMonth()+1]+" "+event.target.innerHTML+" "+date.getFullYear();
+        document.querySelector('.full-date2').innerHTML = months[date.getMonth()+1]+" "+event.target.innerHTML+" "+date.getFullYear();
     }
     else {
-        document.querySelector('.full-date').innerHTML = months[date.getMonth()]+" "+event.target.innerHTML+" "+date.getFullYear();
+        document.querySelector('.full-date2').innerHTML = months[date.getMonth()]+" "+event.target.innerHTML+" "+date.getFullYear();
     }
 
     if(document.querySelector('div.days').classList.contains('selected-date')) {
@@ -103,13 +103,15 @@ document.querySelector('div.days').addEventListener("click", (event)=> {
         $(".today").css({'background-color' : 'aqua'}); //still set to Aqua cuz' haven't found a way to delete or reset.
         $(".selected-date").removeClass("selected-date");
         event.target.classList.add("selected-date");
+        $(".full-date1").html($(".full-date2").html());
     });
 });
 
 //Listener for Month selection
 document.querySelector('div.month').addEventListener('click', (event)=> {
     date.setMonth(event.target.attributes.value.value);
-    document.querySelector('.full-date').innerHTML = months[event.target.attributes.value.value]+" 1 "+date.getFullYear();
+    document.querySelector('.full-date2').innerHTML = months[event.target.attributes.value.value]+" 1 "+date.getFullYear();
+    $(".full-date1").html($(".full-date2").html());
     loadCalendar();
     if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
         loadCalendar();
@@ -119,6 +121,16 @@ document.querySelector('div.month').addEventListener('click', (event)=> {
             $('div.days > div').not(".prev-date").first().addClass("selected-date");
         })
     }
+});
+
+//Listener for Year selection
+document.querySelector('.toPrevYear').addEventListener('click', (event)=> {
+    document.querySelector('.full-date2').innerHTML = months[event.target.attributes.value.value]+" 1 "+date.getFullYear();
+    $(".full-date1").html($(".full-date2").html());
+});
+
+document.querySelector('.toNextYear').addEventListener('click', (event)=> {
+    
 });
 
 /////////////////////////////////RIGHT SIDE CONTAINER SECTION/////////////////////////////////////////////

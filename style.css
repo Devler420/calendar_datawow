@@ -34,6 +34,7 @@
     align-items: center;
     padding: 1rem 2rem;
     background-color: lightpink;
+    text-align: center;
 }
 
 .month {
@@ -119,7 +120,7 @@
 
 /* /////////////////////////////////RIGHT SIDE CONTAINER SECTION///////////////////////////////////////////// */
 
-.full-date {
+.full-date2 {
     font-size: 3rem;
     width: 100%;
     display: flex;

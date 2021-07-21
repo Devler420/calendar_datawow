@@ -18,9 +18,12 @@
     <div class="container">
         <div class="calendar-container">
             <div class="year">
-                <button onclick="toPrevYear()">&#60;</button>
-                <h2></h2>
-                <button onclick="toNextYear()">&#62;</button>
+                <button onclick="toPrevYear()" class="toPrevYear">&#60;</button>
+                    <div>
+                        <h1></h1>
+                        <p class="full-date1"></p>
+                    </div>
+                <button onclick="toNextYear()" class="toNextYear">&#62;</button>
             </div>
             <div class="month">
                 <div value="0">JAN</div>
@@ -53,7 +56,7 @@
         </div>
 
         <div class="event-container">
-            <div class="full-date">
+            <div class="full-date2">
             </div>
         </div>
     </div>
