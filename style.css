@@ -92,10 +92,6 @@
     align-items: center;
 }
 
-.add-event button:hover {
-    cursor: pointer;
-}
-
 .month div:hover {
     border: 0.1rem solid black;
     cursor: pointer;
@@ -111,11 +107,42 @@
     opacity: 0.5;
 }
 
-.event-container {
-    width: 30rem;
-    height: 30rem;
-    display: inline-flex;
-    background-color: lightblue;
+/* ////////////////////////////////////MENU CONTAINER SECTION///////////////////////////////////////////// */
+.menu-container {
+
+}
+
+.menu div {
+    margin: 1rem 0;
+    padding: .5rem 1rem;
+    border: 2px solid black;
+    border-radius: 2rem;
+    text-align: center;
+}
+
+#button-today {
+    margin-bottom: 4rem;
+}
+
+#button-add-event {
+    margin-top: 4rem;
+}
+
+#button-add-event, #button-today {
+    padding: .5rem 1rem;
+    border: 2px solid black;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.menu div:hover {
+    /* background-color: blue; */
+    border: 0.1rem solid black;
+    cursor: pointer;
+}
+
+#button-add-event , #button-today:hover {
+    cursor: pointer;
 }
 
 /* /////////////////////////////////RIGHT SIDE CONTAINER SECTION///////////////////////////////////////////// */
@@ -123,7 +150,15 @@
 .full-date2 {
     font-size: 3rem;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
+
+.event-container {
+    width: 30rem;
+    height: 30rem;
+    background-color: lightblue;
+}
+
+.event-tab {
+    background-color: gray;
+    display: none;
 }

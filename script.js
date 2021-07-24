@@ -16,7 +16,17 @@ const months = [
     "Oct",
     "Nov",
     "Dec"
-]
+];
+
+const weekdays = [
+    "Sat",
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sun"
+];
 
 function loadCalendar() {
     //getMonth() index number starts from 0
@@ -76,23 +86,37 @@ function toNextYear() {
     loadCalendar();
 }
 
-//Change full date according to user's input
+//Set initial today's date
 function setdateString() {
-    document.querySelector(".full-date1").innerHTML = date.toDateString().substr(3);
-    document.querySelector('.full-date2').innerHTML = date.toDateString().substr(3);
+    let xwday = weekdays[date.getDay()]; //Wed
+    let xmonth = months[date.getMonth()]; //Jul
+    let xday = date.getDate(); //21
+    let xyear = date.getFullYear(); //2021
+    let mainshowdate = `<span id="xmonth">${xmonth} </span><span id="xwday">${xday}, </span><span id="xyear">${xyear} </span>`;
+    document.querySelector(".full-date1").innerHTML = mainshowdate;
+    document.querySelector('.full-date2').innerHTML = mainshowdate;
 }
 
 //Listener for Date selection
 document.querySelector('div.days').addEventListener("click", (event)=> {
-    // console.log(event.target.classList.value)
+    console.log(event.target)
     if(event.target.classList.value == "prev-date") {
-        document.querySelector('.full-date2').innerHTML = months[date.getMonth()-1]+" "+event.target.innerHTML+" "+date.getFullYear();
+        // document.querySelector('.full-date2').innerHTML = months[date.getMonth()-1]+" "+event.target.innerHTML+" "+date.getFullYear();
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1]+" ";
+        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML+", ";
+        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
     else if(event.target.classList.value == "next-date") {
-        document.querySelector('.full-date2').innerHTML = months[date.getMonth()+1]+" "+event.target.innerHTML+" "+date.getFullYear();
+        // document.querySelector('.full-date2').innerHTML = months[date.getMonth()+1]+" "+event.target.innerHTML+" "+date.getFullYear();
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()+1]+" ";
+        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML+", ";
+        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
     else {
-        document.querySelector('.full-date2').innerHTML = months[date.getMonth()]+" "+event.target.innerHTML+" "+date.getFullYear();
+        // document.querySelector('.full-date2').innerHTML = months[date.getMonth()]+" "+event.target.innerHTML+" "+date.getFullYear();
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()]+" ";
+        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML+", ";
+        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
 
     if(document.querySelector('div.days').classList.contains('selected-date')) {
@@ -110,7 +134,9 @@ document.querySelector('div.days').addEventListener("click", (event)=> {
 //Listener for Month selection
 document.querySelector('div.month').addEventListener('click', (event)=> {
     date.setMonth(event.target.attributes.value.value);
-    document.querySelector('.full-date2').innerHTML = months[event.target.attributes.value.value]+" 1 "+date.getFullYear();
+    document.querySelector('.full-date2 span#xmonth').innerHTML = months[event.target.attributes.value.value]+" ";
+    document.querySelector('.full-date2 span#xwday').innerHTML = "1, ";
+    document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
     loadCalendar();
     if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
@@ -125,12 +151,54 @@ document.querySelector('div.month').addEventListener('click', (event)=> {
 
 //Listener for Year selection
 document.querySelector('.toPrevYear').addEventListener('click', (event)=> {
-    document.querySelector('.full-date2').innerHTML = months[event.target.attributes.value.value]+" 1 "+date.getFullYear();
+    document.querySelector('.full-date2 span#xwday').innerHTML = "1, ";
+    document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
 });
 
 document.querySelector('.toNextYear').addEventListener('click', (event)=> {
-    
+    document.querySelector('.full-date2 span#xwday').innerHTML = "1, ";
+    document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
+    $(".full-date1").html($(".full-date2").html());
+});
+
+/* ////////////////////////////////////MENU CONTAINER SECTION///////////////////////////////////////////// */
+
+//Listener for Menu selection
+document.querySelector('div.menu').addEventListener('click', (event)=> {
+    let x = event.target.id;
+    let tabId;
+    if(x == "button-day") {
+        tabId = "day-tab"
+    }
+    else if(x == "button-week") {
+        tabId = "week-tab"
+    }
+    else if(x == "button-month") {
+        tabId = "month-tab"
+    }
+    else if(x == "button-year") {
+        tabId = "year-tab"
+    }
+    openTabs(event.target, tabId);
 });
 
 /////////////////////////////////RIGHT SIDE CONTAINER SECTION/////////////////////////////////////////////
+
+//Open & Close Tabs function (Day, Week, Month, Year)
+function openTabs(e, tabId) {
+    var i, tabcontent, tablink;
+    tabcontent = document.getElementsByClassName('event-tab');
+    for (i=0 ; i < tabcontent.length ; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    tablink = document.getElementsByClassName('tablink');
+    for (i=0 ; i < tablink.length ; i++) {
+        tablink[i].className = tablink[i].className.replace(' active','');
+    }
+
+    document.getElementById(tabId).style.display = "block";
+    e.className += ' active';
+}
+
