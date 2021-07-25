@@ -197,8 +197,11 @@ function openTabs(e, tabId) {
     for (i=0 ; i < tablink.length ; i++) {
         tablink[i].className = tablink[i].className.replace(' active','');
     }
-
-    document.getElementById(tabId).style.display = "block";
+    if(tabId == "year-tab") {
+        document.getElementById(tabId).style.display = "flex";
+    } else {
+        document.getElementById(tabId).style.display = "block";
+    }
     e.className += ' active';
 }
 

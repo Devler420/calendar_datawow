@@ -159,6 +159,155 @@
 }
 
 .event-tab {
-    background-color: gray;
+    /* background-color: gray; */
+    height: 26.25rem;
     display: none;
+}
+
+/* Day-table */
+
+#day-tab {
+    overflow: auto;
+}
+
+#day-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#day-table td,th {
+    border: 1px solid #ddd;
+    padding: 0.25rem;
+}
+
+#day-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#day-table tr:hover {
+    background-color: red;
+}
+
+#day-table td:nth-child(1) {
+    width: 12%;
+}
+
+#day-table td:nth-child(2) {
+    width: 12%;
+}
+
+#day-table td:nth-child(3) {
+    width: 76%;
+    text-align: left;
+}
+
+/* Week-table */
+#week-tab {
+    overflow: auto;
+}
+
+#week-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+#week-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#week-table tbody {
+    height: 50px;
+}
+
+#week-table td,th {
+    border: 1px solid #ddd;
+    padding: 0.25rem;
+}
+
+#week-table td:nth-child(1) {
+    text-align: center;
+}
+
+#week-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#week-table tr:hover {
+    background-color: red;
+}
+
+/* Month-table */
+
+#month-tab {
+    overflow: auto;
+}
+
+#month-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#month-table td,th {
+    border: 1px solid #ddd;
+    padding: 0.25rem;
+}
+
+#month-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#month-table tr:hover {
+    background-color: red;
+}
+
+#month-table td:nth-child(1) {
+    width: 15%;
+    text-align: center;
+}
+
+#month-table td:nth-child(2) {
+    width: 63%;
+    text-align: left;
+}
+
+#month-table td:nth-child(3) {
+    width: 22%;
+    text-align: center;
+}
+
+/* Year-tab */
+
+#year-tab {
+    flex-wrap: wrap;
+    overflow: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.year-outer p {
+    text-align: center;
+}
+
+.year-outer {
+    width: 33.33%;
+    padding: 0 2px;
+}
+
+.year-inner {
+    width: 100%;
+    height: auto;
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+}
+
+.year-inner-days {
+    margin: 4px 0;
+    width: 30%;
+    border: 1px solid black;
 }
