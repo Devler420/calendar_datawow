@@ -10,11 +10,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WowWee Caldendar</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    <link rel="stylesheet" href="jquery.timepicker.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body onload="setdateString()">
+
+    <div id="dialog-form" title="Add Event">
+        <div style="display: flex; width: 100%; justify-content: space-between; cursor: move;">
+            <p>Setting up your event.</p>
+            <button id="dialog-close" onclick="closeAddEventDialog()">X</button>
+        </div>
+        <form>
+            <fieldset>
+                <div>
+                    <label>Event Title</label>
+                    <input type="text" name="name" id="name" value="Add title"/>
+                </div>
+                <div>
+                    <label>Description</label>
+                    <input type="text" value="Event's Details"/>
+                </div>
+                <div>
+                    <label>Date Start</label>
+                    <input type="text" id="date_start"/>
+                    <label>Time Start</label>
+                    <input type="text" id="time_start"/>
+                </div>
+                <div>
+                    <label>Date End</label>
+                    <input type="text" id="date_end"/>
+                    <label>Time End</label>
+                    <input type="text" id="time_end"/>
+                </div>
+                <div>
+                    <button>Add Event</button>
+                </div>
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
+            </fieldset>
+        </form>
+    </div>
+
     <div class="heading">
         <h1>Better than Google Calendar</h1>
     </div>
@@ -241,7 +281,7 @@
             <!-- Year-tab -->
             <div id="year-tab"  class="event-tab">
                 <div class="year-outer">
-                    <p>JAN</p>
+                    <h3>JAN</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -250,7 +290,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>FEB</p>
+                    <h3>FEB</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -259,7 +299,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>MAR</p>
+                    <h3>MAR</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -268,7 +308,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>APR</p>
+                    <h3>APR</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -277,13 +317,13 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>MAY</p>
+                    <h3>MAY</h3>
                     <div class="year-inner">
                         <h4>No Events</h4>
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>JUN</p>
+                    <h3>JUN</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -292,7 +332,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>JUL</p>
+                    <h3>JUL</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -301,7 +341,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>AUG</p>
+                    <h3>AUG</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">8</h4>
@@ -309,7 +349,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>SEP</p>
+                    <h3>SEP</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -318,7 +358,7 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>OCT</p>
+                    <h3>OCT</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -327,14 +367,14 @@
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>NOV</p>
+                    <h3>NOV</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">14</h4>
                     </div>
                 </div>
                 <div class="year-outer">
-                    <p>DEC</p>
+                    <h3>DEC</h3>
                     <div class="year-inner">
                         <h4 class="year-inner-days">3</h4>
                         <h4 class="year-inner-days">4</h4>
@@ -348,5 +388,8 @@
     </div>
     <script src="script.js"></script>
     <script src="jquery-3.6.0.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="datepair.js"></script>
+    <script src="jquery.timepicker.min.js"></script>
 </body>
 </html>

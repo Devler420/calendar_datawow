@@ -183,6 +183,54 @@ document.querySelector('div.menu').addEventListener('click', (event)=> {
     openTabs(event.target, tabId);
 });
 
+//Listener for Add Event button
+document.querySelector('#button-add-event').addEventListener('click', (event)=> {
+    openAddEventDialog();
+});
+
+function openAddEventDialog() {
+
+    document.getElementById('dialog-form').style.display = "block";
+
+    $('#dialog-form').draggable();
+    $('#date_start').datepicker({
+        dateFormat: 'dd-M-yy'
+    }); 
+    $('#date_end').datepicker({
+        dateFormat: 'dd-M-yy',
+        'autoclose': true
+    }); 
+    $('#time_start').timepicker({
+        'showDuration': true,
+        'timeFormat': 'H:i:s'
+    });
+    $('#time_end').timepicker({
+        'showDuration': true,
+        'timeFormat': 'H:i:s'
+    });
+}
+
+function closeAddEventDialog() {
+    document.getElementById('dialog-form').style.display = "none";
+}
+
+//EVENT Input dialog
+// var dialog = $("#dialog-form").dialog({
+//     autoOpen: false,
+//     height: 400,
+//     width: 300,
+//     model: true,
+//     buttons: {
+//         "Add event": addEvent(),
+//         Cancel: function() {
+//             dialog.dialog("close");
+//         }
+//     },
+//     close: function() {
+//         //somecode for the CLOSE function
+//     }
+// });
+
 /////////////////////////////////RIGHT SIDE CONTAINER SECTION/////////////////////////////////////////////
 
 //Open & Close Tabs function (Day, Week, Month, Year)
