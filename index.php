@@ -9,9 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=chrome">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WowWee Caldendar</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="jquery-ui.min.css">
-    <link rel="stylesheet" href="jquery.timepicker.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -98,7 +98,7 @@
 
         <div class="menu-container">
             <!-- change from button => picture/something later // or maybe change to drop-down -->
-            <div id="button-today">
+            <div id="button-today" onclick="getSelectedDate()">
                 <strong>TODAY</strong>
             </div>
             <div class="menu">
@@ -386,10 +386,10 @@
 
         </div>
     </div>
-    <script src="script.js"></script>
-    <script src="jquery-3.6.0.min.js"></script>
-    <script src="jquery-ui.min.js"></script>
-    <script src="datepair.js"></script>
-    <script src="jquery.timepicker.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/datepair.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
 </body>
 </html>

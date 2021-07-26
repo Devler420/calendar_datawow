@@ -92,7 +92,7 @@ function setdateString() {
     let xmonth = months[date.getMonth()]; //Jul
     let xday = date.getDate(); //21
     let xyear = date.getFullYear(); //2021
-    let mainshowdate = `<span id="xmonth">${xmonth} </span><span id="xwday">${xday}, </span><span id="xyear">${xyear} </span>`;
+    let mainshowdate = `<span id="xmonth">${xmonth}</span> <span id="xwday">${xday}</span>, <span id="xyear">${xyear}</span>`;
     document.querySelector(".full-date1").innerHTML = mainshowdate;
     document.querySelector('.full-date2').innerHTML = mainshowdate;
 }
@@ -102,20 +102,20 @@ document.querySelector('div.days').addEventListener("click", (event)=> {
     console.log(event.target)
     if(event.target.classList.value == "prev-date") {
         // document.querySelector('.full-date2').innerHTML = months[date.getMonth()-1]+" "+event.target.innerHTML+" "+date.getFullYear();
-        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1]+" ";
-        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML+", ";
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1];
+        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
         document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
     else if(event.target.classList.value == "next-date") {
         // document.querySelector('.full-date2').innerHTML = months[date.getMonth()+1]+" "+event.target.innerHTML+" "+date.getFullYear();
-        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()+1]+" ";
-        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML+", ";
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()+1];
+        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
         document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
     else {
         // document.querySelector('.full-date2').innerHTML = months[date.getMonth()]+" "+event.target.innerHTML+" "+date.getFullYear();
-        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()]+" ";
-        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML+", ";
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()];
+        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
         document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
 
@@ -134,8 +134,8 @@ document.querySelector('div.days').addEventListener("click", (event)=> {
 //Listener for Month selection
 document.querySelector('div.month').addEventListener('click', (event)=> {
     date.setMonth(event.target.attributes.value.value);
-    document.querySelector('.full-date2 span#xmonth').innerHTML = months[event.target.attributes.value.value]+" ";
-    document.querySelector('.full-date2 span#xwday').innerHTML = "1, ";
+    document.querySelector('.full-date2 span#xmonth').innerHTML = months[event.target.attributes.value.value];
+    document.querySelector('.full-date2 span#xwday').innerHTML = "1";
     document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
     loadCalendar();
@@ -147,17 +147,18 @@ document.querySelector('div.month').addEventListener('click', (event)=> {
             $('div.days > div').not(".prev-date").first().addClass("selected-date");
         })
     }
+    console.log(getSelectedDate());
 });
 
 //Listener for Year selection
 document.querySelector('.toPrevYear').addEventListener('click', (event)=> {
-    document.querySelector('.full-date2 span#xwday').innerHTML = "1, ";
+    document.querySelector('.full-date2 span#xwday').innerHTML = "1";
     document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
 });
 
 document.querySelector('.toNextYear').addEventListener('click', (event)=> {
-    document.querySelector('.full-date2 span#xwday').innerHTML = "1, ";
+    document.querySelector('.full-date2 span#xwday').innerHTML = "1";
     document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
 });
@@ -167,20 +168,39 @@ document.querySelector('.toNextYear').addEventListener('click', (event)=> {
 //Listener for Menu selection
 document.querySelector('div.menu').addEventListener('click', (event)=> {
     let x = event.target.id;
-    let tabId;
+    let tabId, byParam;
     if(x == "button-day") {
-        tabId = "day-tab"
+        tabId = "day-tab",
+        byParam = "byday"
     }
     else if(x == "button-week") {
-        tabId = "week-tab"
+        tabId = "week-tab",
+        byParam = "byweek"
     }
     else if(x == "button-month") {
-        tabId = "month-tab"
+        tabId = "month-tab",
+        byParam = "bymonth"
     }
     else if(x == "button-year") {
-        tabId = "year-tab"
+        tabId = "year-tab",
+        byParam = "byyear"
     }
     openTabs(event.target, tabId);
+    //TEST AJAX
+    $.ajax({
+        url: "output/get_data_"+byParam+".php",
+        type: "POST",
+        data: {selectedDate : getSelectedDate()},
+        success: function(data) {
+            console.log(data);
+        }
+    }).done(function() {
+        console.log("Success.");
+    }).fail(function() {
+        console.log("Error occurred.");
+    }).always(function() {
+        console.log("Complete.");
+    });
 });
 
 //Listener for Add Event button
@@ -214,24 +234,16 @@ function closeAddEventDialog() {
     document.getElementById('dialog-form').style.display = "none";
 }
 
-//EVENT Input dialog
-// var dialog = $("#dialog-form").dialog({
-//     autoOpen: false,
-//     height: 400,
-//     width: 300,
-//     model: true,
-//     buttons: {
-//         "Add event": addEvent(),
-//         Cancel: function() {
-//             dialog.dialog("close");
-//         }
-//     },
-//     close: function() {
-//         //somecode for the CLOSE function
-//     }
-// });
-
 /////////////////////////////////RIGHT SIDE CONTAINER SECTION/////////////////////////////////////////////
+
+//Get current selection Day,Month,Year to use as parameters for pulling data from database
+function getSelectedDate() {
+    let Sday = document.getElementById('xwday').innerText;
+    let Smonth = document.getElementById('xmonth').innerText;
+    let Syear = document.getElementById('xyear').innerText;
+    let arrSelectedDate = new Array(Sday,Smonth,Syear);
+    return arrSelectedDate;
+}
 
 //Open & Close Tabs function (Day, Week, Month, Year)
 function openTabs(e, tabId) {
