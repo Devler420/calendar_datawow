@@ -11,6 +11,6 @@
 
     $data = pulldataByDay($day, $month, $year);
     $data_json = json_encode($data);
-    print_r($data);
+    print_r($data_json);
 
 ?>

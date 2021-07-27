@@ -230,6 +230,7 @@
 
 #week-table tbody {
     height: 50px;
+    background-color: white;
 }
 
 #week-table td,th {
@@ -242,7 +243,7 @@
 }
 
 #week-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
 }
 
 #week-table tr:hover {
@@ -321,4 +322,24 @@
     margin: 4px 0;
     width: 30%;
     border: 1px solid black;
+}
+
+.year-inner-days #year-days {
+    font-weight: bold;
+}
+
+.year-inner-days #dul-event {
+    position: relative;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    font-size: 12px;
+    text-align: center;
+    border: 1px none black;
+    display: initial;
+    vertical-align: middle;
+    top:-2.5px;
+    left: 2px;
+    padding: 0 3.5px;
 }

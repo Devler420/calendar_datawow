@@ -14,7 +14,7 @@
 
     function pulldataByDay($day, $month, $year) {
         $conn = createmysqlConnection();
-        $sql = "SELECT * FROM `events` WHERE DAY(date_start) = ? AND MONTH(date_start) = ? AND YEAR(date_start) = ?"; //SELECT * FROM `events` WHERE DAY(date_start) = 28 AND MONTH(date_start) = 07 AND YEAR(date_start) = 2021
+        $sql = "SELECT * FROM `events` WHERE DAY(date_start) = ? AND MONTH(date_start) = ? AND YEAR(date_start) = ? ORDER BY time_start ASC"; //SELECT * FROM `events` WHERE DAY(date_start) = 28 AND MONTH(date_start) = 07 AND YEAR(date_start) = 2021 ORDER BY time_start ASC
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $day, $month, $year);
         $stmt->execute();
@@ -42,7 +42,7 @@
 
     function pulldataByWeek($week) {
         $conn = createmysqlConnection();
-        $sql = "SELECT * FROM `events` WHERE WEEK(date_start) = ?"; //SELECT * FROM `events` WHERE WEEK(date_start) = 30
+        $sql = "SELECT * FROM `events` WHERE WEEK(date_start) = ? ORDER BY date_start, time_start AS"; //SELECT * FROM `events` WHERE WEEK(date_start) = 30 ORDER BY date_start, time_start ASC
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $week);
         $stmt->execute();
@@ -70,7 +70,7 @@
 
     function pulldataByMonth($month, $year) {
         $conn = createmysqlConnection();
-        $sql = "SELECT * FROM `events` WHERE MONTH(date_start) = ? AND YEAR(date_start) = ?"; //SELECT * FROM `events` WHERE MONTH(date_start) = 07 AND YEAR(date_start) = 2021
+        $sql = "SELECT * FROM `events` WHERE MONTH(date_start) = ? AND YEAR(date_start) = ? ORDER BY date_start ASC"; //SELECT * FROM `events` WHERE MONTH(date_start) = 07 AND YEAR(date_start) = 2021 ORDER BY date_start ASC
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $month, $year);
         $stmt->execute();
@@ -98,7 +98,7 @@
 
     function pulldataByYear($year) {
         $conn = createmysqlConnection();
-        $sql = "SELECT * FROM `events` WHERE YEAR(date_start) = ?"; //SELECT * FROM `events` WHERE YEAR(date_start) = 2021
+        $sql = "SELECT * FROM `events` WHERE YEAR(date_start) = ? ORDER BY date_start ASC"; //SELECT * FROM `events` WHERE YEAR(date_start) = 2021 ORDER BY date_start ASC
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $year);
         $stmt->execute();

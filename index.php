@@ -126,21 +126,7 @@
                         <th>Event</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>16.00</td>
-                            <td>19.00</td>
-                            <td>Event 1</td>
-                        </tr>
-                        <tr>
-                            <td>20.00</td>
-                            <td>22.00</td>
-                            <td>Event 2</td>
-                        </tr>
-                        <tr>
-                            <td>01.00</td>
-                            <td>03.30</td>
-                            <td>Event 3</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -159,77 +145,245 @@
                         <th>SAT</th>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="">
                             <td>00.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>01.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>02.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>03.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>04.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>05.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>06.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE">1</td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>07.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE">1</td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>08.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE">1</td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>09.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>10.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>11.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>12.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>13.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>14.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>15.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>16.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>17.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>18.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>19.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>20.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>21.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>22.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                         <tr>
                             <td>23.00</td>
+                            <td class="wSUN"></td>
+                            <td class="wMON"></td>
+                            <td class="wTUE"></td>
+                            <td class="wWED"></td>
+                            <td class="wTHU"></td>
+                            <td class="wFRI"></td>
+                            <td class="wSAT"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -237,21 +391,6 @@
 
             <!-- Month-tab -->
             <div id="month-tab" class="event-tab" >
-                <?php
-                    // $conn = createmysqlConnection();
-                    // $sql = "SELECT * FROM events WHERE MONTH(datetime_start) = '07'";
-                    // $result = mysqli_query($conn,$sql);
-                    // if (mysqli_num_rows($result) > 0) {
-                    //     while ($row = mysqli_fetch_assoc($result)) {
-                    //         echo "<p>";
-                    //         echo $row['title'];
-                    //         echo $row['datetime_start'];
-                    //         echo "</p>";
-                    //     }
-                    // } else {
-                    //     echo "There are no Data";
-                    // }
-                ?>
                 <table id="month-table">
                     <thead>
                         <th>Date</th>
@@ -259,21 +398,7 @@
                         <th>Time</th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1 Jul</td>
-                            <td>Event 1</td>
-                            <td>16.00-19.00</td>
-                        </tr>
-                        <tr>
-                            <td>2 Jul</td>
-                            <td>Event 2</td>
-                            <td>20.00-22.00</td>
-                        </tr>
-                        <tr>
-                            <td>6 Jul</td>
-                            <td>Event 3</td>
-                            <td>01.00-03.30</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -282,104 +407,74 @@
             <div id="year-tab"  class="event-tab">
                 <div class="year-outer">
                     <h3>JAN</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="jan">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>FEB</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="feb">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>MAR</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="mar">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>APR</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="apr">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>MAY</h3>
-                    <div class="year-inner">
-                        <h4>No Events</h4>
+                    <div class="year-inner" id="may">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>JUN</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="jun">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>JUL</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="jul">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>AUG</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="aug">
+
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>SEP</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="sep">
+                        
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>OCT</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="oct">
+                        
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>NOV</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="nov">
+                        
                     </div>
                 </div>
                 <div class="year-outer">
                     <h3>DEC</h3>
-                    <div class="year-inner">
-                        <h4 class="year-inner-days">3</h4>
-                        <h4 class="year-inner-days">4</h4>
-                        <h4 class="year-inner-days">8</h4>
-                        <h4 class="year-inner-days">14</h4>
+                    <div class="year-inner" id="dec">
+                        
                     </div>
                 </div>
             </div> 

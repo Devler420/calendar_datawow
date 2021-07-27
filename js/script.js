@@ -172,6 +172,7 @@ document.querySelector('div.menu').addEventListener('click', (event)=> {
     if(x == "button-day") {
         tabId = "day-tab",
         byParam = "byday"
+        displayDatabyDay();
     }
     else if(x == "button-week") {
         tabId = "week-tab",
@@ -180,27 +181,31 @@ document.querySelector('div.menu').addEventListener('click', (event)=> {
     else if(x == "button-month") {
         tabId = "month-tab",
         byParam = "bymonth"
+        displayDatabyMonth();
     }
     else if(x == "button-year") {
         tabId = "year-tab",
         byParam = "byyear"
+        displayDatabyYear();
     }
     openTabs(event.target, tabId);
-    //TEST AJAX
-    $.ajax({
-        url: "output/get_data_"+byParam+".php",
-        type: "POST",
-        data: {selectedDate : getSelectedDate()},
-        success: function(data) {
-            console.log(data);
-        }
-    }).done(function() {
-        console.log("Success.");
-    }).fail(function() {
-        console.log("Error occurred.");
-    }).always(function() {
-        console.log("Complete.");
-    });
+
+    //Retrive data from server side (MySQL Apache)
+    // $.ajax({
+    //     url: "output/get_data_"+byParam+".php",
+    //     type: "POST",
+    //     data: {selectedDate : getSelectedDate()},
+    //     success: function(data) {
+    //         console.log(data);
+    //     }
+    // }).done(function() {
+    //     console.log("Success.");
+    // }).fail(function() {
+    //     console.log("Error occurred.");
+    // }).always(function() {
+    //     console.log("Complete.");
+    // });
+
 });
 
 //Listener for Add Event button
@@ -263,5 +268,188 @@ function openTabs(e, tabId) {
         document.getElementById(tabId).style.display = "block";
     }
     e.className += ' active';
+}
+
+function displayDatabyDay() {
+
+    $('#day-table > tbody > tr').remove();
+
+    let template = 
+    "\
+    <tr> \
+        <td>{{[[--time_start--]]}}</td> \
+        <td>{{[[--time_end--]]}}</td> \
+        <td>{{[[--event_name--]]}}</td> \
+    </tr> \
+    ";
+
+    //Retrive data from server side (MySQL Apache)
+    $.ajax({
+        url: "output/get_data_byday.php",
+        type: "POST",
+        data: {selectedDate : getSelectedDate()},
+        success: function(data) {
+            // console.log(data);
+            let obj = JSON.parse(data);
+            console.log(obj)
+            for (let i = 0 ; i < obj.length ; i++) {
+                let row = template;
+                row = row.replace("{{[[--time_start--]]}}",obj[i].time_start);
+                row = row.replace("{{[[--time_end--]]}}",obj[i].time_end);
+                row = row.replace("{{[[--event_name--]]}}",obj[i].title);
+                $('#day-table tbody').append(row)
+            }
+        }
+    }).done(function() {
+        console.log("Success.");
+    }).fail(function() {
+        console.log("Error occurred.");
+    }).always(function() {
+        console.log("Complete.");
+    });
+}
+
+// function displayDatabyWeek() {
+
+//     let template = 
+//     "\
+//     <tr> \
+//         <td>{{[[--time_start--]]}}</td> \
+//         <td>{{[[--time_end--]]}}</td> \
+//         <td>{{[[--event_name--]]}}</td> \
+//     </tr> \
+//     ";
+
+//     //Retrive data from server side (MySQL Apache)
+//     $.ajax({
+//         url: "output/get_data_byweek.php",
+//         type: "POST",
+//         data: {selectedDate : getSelectedDate()},
+//         success: function(data) {
+//             // console.log(data);
+//             let obj = JSON.parse(data);
+//             console.log(obj)
+//             for (let i = 0 ; i < obj.length ; i++) {
+//                 let row = template;
+//                 row = row.replace("{{[[--time_start--]]}}",obj[i].time_start);
+//                 row = row.replace("{{[[--time_end--]]}}",obj[i].time_end);
+//                 row = row.replace("{{[[--event_name--]]}}",obj[i].title);
+//                 $('#month-table tbody').append(row)
+//             }
+//         }
+//     }).done(function() {
+//         console.log("Success.");
+//     }).fail(function() {
+//         console.log("Error occurred.");
+//     }).always(function() {
+//         console.log("Complete.");
+//     });
+// }
+
+function displayDatabyMonth() {
+
+    $('#month-table > tbody > tr').remove();
+
+    let template = 
+    "\
+    <tr> \
+        <td>{{[[--date_start--]]}}</td> \
+        <td>{{[[--event_name--]]}}</td> \
+        <td>{{[[--time--]]}}</td> \
+    </tr> \
+    ";
+
+    //Retrive data from server side (MySQL Apache)
+    $.ajax({
+        url: "output/get_data_bymonth.php",
+        type: "POST",
+        data: {selectedDate : getSelectedDate()},
+        success: function(data) {
+            // console.log(data);
+            let obj = JSON.parse(data);
+            console.log(obj)
+            for (let i = 0 ; i < obj.length ; i++) {
+                let row = template;
+                row = row.replace("{{[[--date_start--]]}}",obj[i].date_start);
+                row = row.replace("{{[[--event_name--]]}}",obj[i].title);
+                row = row.replace("{{[[--time--]]}}",obj[i].time_start+"-"+obj[i].time_end);
+                $('#month-table tbody').append(row)
+            }
+        }
+    }).done(function() {
+        console.log("Success.");
+    }).fail(function() {
+        console.log("Error occurred.");
+    }).always(function() {
+        console.log("Complete.");
+    });
+}
+
+function displayDatabyYear() {
+
+    $('.year-inner-days').remove();
+
+    let template = 
+    '\
+    <div class="year-inner-days"> \
+        <span id="year-days">{{[[--date_start--]]}}</span> \
+        <div id="dul-event">{{[[--numofDulplicateEvent--]]}}</div> \
+    </div> \
+    ';
+
+    let dulplicateEventTemplate = '<div id="dul-event">{{[[--numofDulplicateEvent--]]}}</div>';
+
+    let noEventTemplate = "<h4>No Event</h4>";
+
+    // <div class="year-inner-days">
+    //     <span id="year-days">3</span>
+    //     <div id="dul-event">2</div>
+    // </div>
+
+    //Retrive data from server side (MySQL Apache)
+    $.ajax({
+        url: "output/get_data_byyear.php",
+        type: "POST",
+        data: {selectedDate : getSelectedDate()},
+        success: function(data) {
+            let obj = JSON.parse(data);
+            console.log(obj)
+            let dulplicateEvent = 1;
+            for (let i = 0 ; i < obj.length ; i++) {
+                // console.log(obj[i]);
+                if(i != obj.length-1 && obj[i].date_start == obj[i+1].date_start) {
+                    dulplicateEvent++;
+                    continue;
+                } else if(i == obj.length-1 || obj.length == 0) {
+
+                }
+                let m = months[parseInt(obj[i].date_start.substring(5,7))-1].toLowerCase();
+                let d = parseInt(obj[i].date_start.substring(8));
+                let row = template;
+                row = row.replace("{{[[--date_start--]]}}", d);
+                if(dulplicateEvent == 1) {
+                    row = row.replace('<div id="dul-event">{{[[--numofDulplicateEvent--]]}}</div>', '');
+                } else {
+                    row = row.replace("{{[[--numofDulplicateEvent--]]}}", dulplicateEvent);
+                }
+                $(`#${m}`).append(row);
+                dulplicateEvent = 1;
+            }
+            //Append "No Event"
+            for (let i = 0 ; i <= 11 ; i++) {
+                let m = months[i].toLowerCase(); //jan jul
+                // console.log($(`#${m}`)[0].firstElementChild);
+                if ($(`#${m}`)[0].firstElementChild == null) {
+                    $(`#${m}`).append(noEventTemplate);
+                }
+            }
+        }
+    }).done(function() {
+        console.log("Success.");
+    }).fail(function() {
+        console.log("Error occurred.");
+    }).always(function() {
+        console.log("Complete.");
+    });
 }
 
