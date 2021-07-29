@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body onload="setdateString()">
+<body onload="setdateString();">
 
     <div id="dialog-form" title="Add Event">
         <div style="display: flex; width: 100%; justify-content: space-between; cursor: move;">
@@ -44,6 +44,17 @@
                     <input type="text" id="date_end"/>
                     <label>Time End</label>
                     <input type="text" id="time_end"/>
+                </div>
+                <div>
+                    <label>Color</label>
+                    <input type="color" name="head" value="#ffadad">
+                    <input type="color" name="head" value="#ffd6a5">
+                    <input type="color" name="head" value="#fdffb6">
+                    <input type="color" name="head" value="#caffbf">
+                    <input type="color" name="head" value="#9bf6ff">
+                    <input type="color" name="head" value="#a0c4ff">
+                    <input type="color" name="head" value="#bdb2ff">
+                    <input type="color" name="head" value="#ffc6ff">
                 </div>
                 <div>
                     <button>Add Event</button>
@@ -98,7 +109,7 @@
 
         <div class="menu-container">
             <!-- change from button => picture/something later // or maybe change to drop-down -->
-            <div id="button-today" onclick="getSelectedDate()">
+            <div id="button-today" onclick="today()">
                 <strong>TODAY</strong>
             </div>
             <div class="menu">
@@ -118,7 +129,7 @@
             </div>
 
             <!-- Day-tab -->
-            <div id="day-tab"   class="event-tab" style="display: block;">
+            <div id="day-tab"   class="event-tab">
                 <table id="day-table">
                     <thead>
                         <th>Start Time</th>
@@ -145,7 +156,7 @@
                         <th>SAT</th>
                     </thead>
                     <tbody>
-                        <tr id="">
+                        <tr id="00:00">
                             <td>00.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -155,7 +166,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="01:00">
                             <td>01.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -165,7 +176,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="02:00">
                             <td>02.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -175,7 +186,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="03:00">
                             <td>03.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -185,7 +196,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="04:00">
                             <td>04.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -195,7 +206,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="05:00">
                             <td>05.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -205,37 +216,37 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="06:00">
                             <td>06.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
-                            <td class="wTUE">1</td>
+                            <td class="wTUE"></td>
                             <td class="wWED"></td>
                             <td class="wTHU"></td>
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="07:00">
                             <td>07.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
-                            <td class="wTUE">1</td>
+                            <td class="wTUE"></td>
                             <td class="wWED"></td>
                             <td class="wTHU"></td>
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="08:00">
                             <td>08.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
-                            <td class="wTUE">1</td>
+                            <td class="wTUE"></td>
                             <td class="wWED"></td>
                             <td class="wTHU"></td>
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="09:00">
                             <td>09.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -245,7 +256,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="10:00">
                             <td>10.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -255,7 +266,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="11:00"> 
                             <td>11.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -265,7 +276,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="12:00">
                             <td>12.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -275,7 +286,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="13:00">
                             <td>13.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -285,7 +296,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="14:00">
                             <td>14.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -295,7 +306,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="15:00">
                             <td>15.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -305,7 +316,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="16:00">
                             <td>16.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -315,7 +326,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="17:00">
                             <td>17.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -325,7 +336,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="18:00">
                             <td>18.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -335,7 +346,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="19:00">
                             <td>19.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -345,7 +356,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="20:00">
                             <td>20.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -355,7 +366,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="21:00">
                             <td>21.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -365,7 +376,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="22:00">
                             <td>22.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -375,7 +386,7 @@
                             <td class="wFRI"></td>
                             <td class="wSAT"></td>
                         </tr>
-                        <tr>
+                        <tr id="23:00">
                             <td>23.00</td>
                             <td class="wSUN"></td>
                             <td class="wMON"></td>
@@ -390,7 +401,7 @@
             </div>
 
             <!-- Month-tab -->
-            <div id="month-tab" class="event-tab" >
+            <div id="month-tab" class="event-tab" style="display: block;">
                 <table id="month-table">
                     <thead>
                         <th>Date</th>

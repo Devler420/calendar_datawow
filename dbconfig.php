@@ -42,7 +42,7 @@
 
     function pulldataByWeek($week) {
         $conn = createmysqlConnection();
-        $sql = "SELECT * FROM `events` WHERE WEEK(date_start) = ? ORDER BY date_start, time_start AS"; //SELECT * FROM `events` WHERE WEEK(date_start) = 30 ORDER BY date_start, time_start ASC
+        $sql = "SELECT * FROM `events` WHERE WEEK(date_start) = ? ORDER BY date_start, time_start ASC"; //SELECT * FROM `events` WHERE WEEK(date_start) = 30 ORDER BY date_start, time_start ASC
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $week);
         $stmt->execute();
@@ -123,19 +123,4 @@
         $conn->close();
         return $dataByYear;
     }
-    
-    
-    // $conn = createmysqlConnection();
-                    // $sql = "SELECT * FROM events WHERE MONTH(datetime_start) = '07'";
-                    // $result = mysqli_query($conn,$sql);
-                    // if (mysqli_num_rows($result) > 0) {
-                    //     while ($row = mysqli_fetch_assoc($result)) {
-                    //         echo "<p>";
-                    //         echo $row['title'];
-                    //         echo $row['datetime_start'];
-                    //         echo "</p>";
-                    //     }
-                    // } else {
-                    //     echo "There are no Data";
-                    // }
 ?>

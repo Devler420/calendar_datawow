@@ -1,5 +1,5 @@
 //Today's date
-const date = new Date();
+var date = new Date();
 
 /////////////////////////////////LEFT SIDE CONTAINER SECTION/////////////////////////////////////////////
 
@@ -177,6 +177,7 @@ document.querySelector('div.menu').addEventListener('click', (event)=> {
     else if(x == "button-week") {
         tabId = "week-tab",
         byParam = "byweek"
+        displayDatabyWeek();
     }
     else if(x == "button-month") {
         tabId = "month-tab",
@@ -189,23 +190,6 @@ document.querySelector('div.menu').addEventListener('click', (event)=> {
         displayDatabyYear();
     }
     openTabs(event.target, tabId);
-
-    //Retrive data from server side (MySQL Apache)
-    // $.ajax({
-    //     url: "output/get_data_"+byParam+".php",
-    //     type: "POST",
-    //     data: {selectedDate : getSelectedDate()},
-    //     success: function(data) {
-    //         console.log(data);
-    //     }
-    // }).done(function() {
-    //     console.log("Success.");
-    // }).fail(function() {
-    //     console.log("Error occurred.");
-    // }).always(function() {
-    //     console.log("Complete.");
-    // });
-
 });
 
 //Listener for Add Event button
@@ -233,6 +217,14 @@ function openAddEventDialog() {
         'showDuration': true,
         'timeFormat': 'H:i:s'
     });
+}
+
+function today() {
+    date = new Date();
+    loadCalendar();
+    setdateString();
+    displayDatabyDay();
+    openTabs(document.getElementById('button-day'), "day-tab");
 }
 
 function closeAddEventDialog() {
@@ -294,8 +286,8 @@ function displayDatabyDay() {
             console.log(obj)
             for (let i = 0 ; i < obj.length ; i++) {
                 let row = template;
-                row = row.replace("{{[[--time_start--]]}}",obj[i].time_start);
-                row = row.replace("{{[[--time_end--]]}}",obj[i].time_end);
+                row = row.replace("{{[[--time_start--]]}}",obj[i].time_start.substring(0,5));
+                row = row.replace("{{[[--time_end--]]}}",obj[i].time_end.substring(0,5));
                 row = row.replace("{{[[--event_name--]]}}",obj[i].title);
                 $('#day-table tbody').append(row)
             }
@@ -309,42 +301,65 @@ function displayDatabyDay() {
     });
 }
 
-// function displayDatabyWeek() {
+function displayDatabyWeek() {
 
-//     let template = 
-//     "\
-//     <tr> \
-//         <td>{{[[--time_start--]]}}</td> \
-//         <td>{{[[--time_end--]]}}</td> \
-//         <td>{{[[--event_name--]]}}</td> \
-//     </tr> \
-//     ";
+    $('#week-table > tbody').css({'background-color' : '' , 'border-color' : ''});
 
-//     //Retrive data from server side (MySQL Apache)
-//     $.ajax({
-//         url: "output/get_data_byweek.php",
-//         type: "POST",
-//         data: {selectedDate : getSelectedDate()},
-//         success: function(data) {
-//             // console.log(data);
-//             let obj = JSON.parse(data);
-//             console.log(obj)
-//             for (let i = 0 ; i < obj.length ; i++) {
-//                 let row = template;
-//                 row = row.replace("{{[[--time_start--]]}}",obj[i].time_start);
-//                 row = row.replace("{{[[--time_end--]]}}",obj[i].time_end);
-//                 row = row.replace("{{[[--event_name--]]}}",obj[i].title);
-//                 $('#month-table tbody').append(row)
-//             }
-//         }
-//     }).done(function() {
-//         console.log("Success.");
-//     }).fail(function() {
-//         console.log("Error occurred.");
-//     }).always(function() {
-//         console.log("Complete.");
-//     });
-// }
+    let template = 
+    "\
+    <tr> \
+        <td>{{[[--time_start--]]}}</td> \
+        <td>{{[[--time_end--]]}}</td> \
+        <td>{{[[--event_name--]]}}</td> \
+    </tr> \
+    ";
+
+    // <tr id="21:00">
+    //     <td>21.00</td>
+    //     <td class="wSUN"></td>
+    //     <td class="wMON"></td>
+    //     <td class="wTUE"></td>
+    //     <td class="wWED"></td>
+    //     <td class="wTHU"></td>
+    //     <td class="wFRI"></td>
+    //     <td class="wSAT" style="background-color: yellow;"></td>
+    // </tr>
+
+    $.ajax({
+        url: "output/get_data_byweek.php",
+        type: "POST",
+        data: {selectedDate : getSelectedDate()},
+        success: function(data) {
+            // console.log("DATA: "+data);
+            let obj = JSON.parse(data);
+            console.log(obj)
+            for (let i = 0 ; i < obj.length ; i++) {
+                let row = template;
+                let weekdayID = "w"+weekdays[new Date(obj[i].date_start).getDay()].toUpperCase();
+                let timestart = obj[i].time_start.substring(0,2);
+                let timeend = obj[i].time_end.substring(0,2);
+                let timecount = obj[i].time_end.substring(0,2) - obj[i].time_start.substring(0,2);
+                let color = obj[i].color;
+
+                for(let j = 0 ; j <= timecount ; j++) {
+                    let xtimestart = 0;
+                    if ((parseInt(timestart)+j) >= 10) {
+                        xtimestart = (parseInt(timestart)+j);
+                    } else {
+                        xtimestart = "0"+(parseInt(timestart)+j);
+                    }
+                    $(`#${xtimestart}\\:00`).children(`.${weekdayID}`).css({"background-color":`${color}`, "border-color":`${color}`});
+                }
+            }
+        }
+    }).done(function() {
+        console.log("Success.");
+    }).fail(function() {
+        console.log("Error occurred.");
+    }).always(function() {
+        console.log("Complete.");
+    });
+}
 
 function displayDatabyMonth() {
 
@@ -359,7 +374,6 @@ function displayDatabyMonth() {
     </tr> \
     ";
 
-    //Retrive data from server side (MySQL Apache)
     $.ajax({
         url: "output/get_data_bymonth.php",
         type: "POST",
@@ -369,10 +383,11 @@ function displayDatabyMonth() {
             let obj = JSON.parse(data);
             console.log(obj)
             for (let i = 0 ; i < obj.length ; i++) {
+                let newDateFormat = obj[i].date_start.split('-');
                 let row = template;
-                row = row.replace("{{[[--date_start--]]}}",obj[i].date_start);
+                row = row.replace("{{[[--date_start--]]}}",newDateFormat[2]+"-"+months[parseInt(newDateFormat[1])-1]);
                 row = row.replace("{{[[--event_name--]]}}",obj[i].title);
-                row = row.replace("{{[[--time--]]}}",obj[i].time_start+"-"+obj[i].time_end);
+                row = row.replace("{{[[--time--]]}}",obj[i].time_start.substring(0,5)+"-"+obj[i].time_end.substring(0,5));
                 $('#month-table tbody').append(row)
             }
         }
@@ -397,16 +412,8 @@ function displayDatabyYear() {
     </div> \
     ';
 
-    let dulplicateEventTemplate = '<div id="dul-event">{{[[--numofDulplicateEvent--]]}}</div>';
-
     let noEventTemplate = "<h4>No Event</h4>";
 
-    // <div class="year-inner-days">
-    //     <span id="year-days">3</span>
-    //     <div id="dul-event">2</div>
-    // </div>
-
-    //Retrive data from server side (MySQL Apache)
     $.ajax({
         url: "output/get_data_byyear.php",
         type: "POST",
@@ -452,4 +459,3 @@ function displayDatabyYear() {
         console.log("Complete.");
     });
 }
-
