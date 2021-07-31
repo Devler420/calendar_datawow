@@ -204,9 +204,11 @@ function openAddEventDialog() {
     $('#dialog-form').draggable();
     $('#date_start').datepicker({
         dateFormat: 'dd-M-yy'
+        // dateFormat: 'dd-m-yy'
     }); 
     $('#date_end').datepicker({
         dateFormat: 'dd-M-yy',
+        // dateFormat: 'dd-m-yy',
         'autoclose': true
     }); 
     $('#time_start').timepicker({
@@ -219,16 +221,63 @@ function openAddEventDialog() {
     });
 }
 
+//Listener for Add Event's Color Selector
+document.querySelectorAll('.material-icons-outlined').forEach(item => {
+    item.addEventListener('click', (event) => {
+        $(`.${event.target.className}`).siblings().prevObject.css({"opacity" : "0"});
+        $(`.${event.target.className}`).siblings().prevObject.removeAttr('id');
+        $(event.target).css({"opacity":"1"});
+        $(event.target).attr('id','selected-color');
+        $('#color').val(event.target.parentNode.getAttribute("colorName"));
+    })
+  });
+
+function submitEventDetails() {
+    let eventname = $('#event_name').val();
+    let eventDesc = $('#event_desc').val();
+    let eventDateStart = $('#date_start').val();
+    let eventTimeStart = $('#time_start').val();
+    let eventDateEnd = $('#date_end').val();
+    let eventTimeEnd = $('#time_end').val();
+    let color  = $('#color').val();
+
+    if(eventname!="" && eventDesc!="" && eventDateStart!="" && eventTimeStart!="" && eventDateEnd!="" && eventTimeEnd!="" && color!="") {
+        $.ajax({
+            url: "output/insert_new_event.php",
+            type: "POST",
+            data: {
+                eventTitle: eventname,
+                eventDesc: eventDesc,
+                eventDateStart: eventDateStart,
+                eventTimeStart: eventTimeStart,
+                eventDateEnd: eventDateEnd,
+                eventTimeEnd: eventTimeEnd,
+                color: color
+            },
+            success: function(data) {
+            }
+        }).done(function() {
+            console.log("Success.");
+        }).fail(function() {
+            console.log("Error occurred.");
+        }).always(function() {
+            console.log("Complete.");
+        });
+    } else {
+        alert('Please fill all the field !');
+    }
+}
+
+function closeAddEventDialog() {
+    document.getElementById('dialog-form').style.display = "none";
+}
+
 function today() {
     date = new Date();
     loadCalendar();
     setdateString();
     displayDatabyDay();
     openTabs(document.getElementById('button-day'), "day-tab");
-}
-
-function closeAddEventDialog() {
-    document.getElementById('dialog-form').style.display = "none";
 }
 
 /////////////////////////////////RIGHT SIDE CONTAINER SECTION/////////////////////////////////////////////

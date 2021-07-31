@@ -123,4 +123,21 @@
         $conn->close();
         return $dataByYear;
     }
+
+    function insertNewEvent($eventName, $description, $datebegin, $dateend, $timebegin, $timeend, $color) {
+        $conn = createmysqlConnection();
+        $sql = "INSERT INTO `events` (id, title, description, date_start, date_end, time_start, time_end, color) VALUES (0,?,?,?,?,?,?,?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssssss", $eventName, $description, $datebegin, $dateend, $timebegin, $timeend, $color);
+
+        $isSuccess = false;
+        if($stmt->execute() === TRUE) {
+            $isSuccess = true;
+        } else {
+            echo "Error: ".$sql."<br>".$conn->error;
+        }
+        $stmt->close();
+        $conn->close();
+        return $isSuccess;
+    }
 ?>

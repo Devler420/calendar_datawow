@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body onload="setdateString();">
 
@@ -23,45 +24,43 @@
             <p>Setting up your event.</p>
             <button id="dialog-close" onclick="closeAddEventDialog()">X</button>
         </div>
-        <form>
+        <form action="" method="POST" autocomplete="off" id="event_data">
             <fieldset>
                 <div>
                     <label>Event Title</label>
-                    <input type="text" name="name" id="name" value="Add title"/>
+                    <input type="text" name="eventTitle" id="event_name" size="50"/>
                 </div>
                 <div>
                     <label>Description</label>
-                    <input type="text" value="Event's Details"/>
+                    <textarea type="text" name="eventDesc" id="event_desc" rows="3" cols="50"></textarea>
                 </div>
                 <div>
                     <label>Date Start</label>
-                    <input type="text" id="date_start"/>
+                    <input type="text" name="eventDateStart" id="date_start"/>
                     <label>Time Start</label>
-                    <input type="text" id="time_start"/>
+                    <input type="text" name="eventTimeStart" id="time_start"/>
                 </div>
                 <div>
                     <label>Date End</label>
-                    <input type="text" id="date_end"/>
+                    <input type="text" name="eventDateEnd" id="date_end"/>
                     <label>Time End</label>
-                    <input type="text" id="time_end"/>
+                    <input type="text" name="eventTimeEnd" id="time_end"/>
+                </div>
+                <div style="display: inline-flex; align-items: center; margin: 3px 0px;">
+                    <div style="margin-right: 10px;">Color</div>
+                    <div class="colorpick" style="background-color: #ffadad" colorName="#ffadad"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #ffd6a5" colorName="#ffd6a5"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #fdffb6" colorName="#fdffb6"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #caffbf" colorName="#caffbf"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #9bf6ff" colorName="#9bf6ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #a0c4ff" colorName="#a0c4ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #bdb2ff" colorName="#bdb2ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <div class="colorpick" style="background-color: #ffc6ff" colorName="#ffc6ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
+                    <input type="text" name="color" id="color"/>
                 </div>
                 <div>
-                    <label>Color</label>
-                    <input type="color" name="head" value="#ffadad">
-                    <input type="color" name="head" value="#ffd6a5">
-                    <input type="color" name="head" value="#fdffb6">
-                    <input type="color" name="head" value="#caffbf">
-                    <input type="color" name="head" value="#9bf6ff">
-                    <input type="color" name="head" value="#a0c4ff">
-                    <input type="color" name="head" value="#bdb2ff">
-                    <input type="color" name="head" value="#ffc6ff">
+                    <button type="submit" name="submit" value="submit" onclick="submitEventDetails();">Add Event</button>
                 </div>
-                <div>
-                    <button>Add Event</button>
-                </div>
-
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px"/>
             </fieldset>
         </form>
     </div>
