@@ -70,7 +70,7 @@
 
     function pulldataByMonth($month, $year) {
         $conn = createmysqlConnection();
-        $sql = "SELECT * FROM `events` WHERE MONTH(date_start) = ? AND YEAR(date_start) = ? ORDER BY date_start ASC"; //SELECT * FROM `events` WHERE MONTH(date_start) = 07 AND YEAR(date_start) = 2021 ORDER BY date_start ASC
+        $sql = "SELECT * FROM `events` WHERE MONTH(date_start) = ? AND YEAR(date_start) = ? ORDER BY date_start ASC, time_start ASC"; //SELECT * FROM `events` WHERE MONTH(date_start) = 07 AND YEAR(date_start) = 2021 ORDER BY date_start ASC
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $month, $year);
         $stmt->execute();

@@ -28,6 +28,11 @@ const weekdays = [
     "Sun"
 ];
 
+var mode_day = false;
+var mode_week = false;
+var mode_month = false;
+var mode_year = false;
+
 function loadCalendar() {
     //getMonth() index number starts from 0
     const month = date.getMonth();
@@ -57,7 +62,7 @@ function loadCalendar() {
     }
     for (let i = 1 ; i <= lastDate ; i++) {
         if(i === date.getDate() && date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
-            days += `<div class="today">${i}</div>`;
+            days += `<div class="today selected-date">${i}</div>`;
             daysRowCount++;
             continue;
         }
@@ -88,6 +93,8 @@ function toNextYear() {
 
 //Set initial today's date
 function setdateString() {
+    $(".full-date1").children().remove();
+    $(".full-date2").children().remove();
     let xwday = weekdays[date.getDay()]; //Wed
     let xmonth = months[date.getMonth()]; //Jul
     let xday = date.getDate(); //21
@@ -97,23 +104,33 @@ function setdateString() {
     document.querySelector('.full-date2').innerHTML = mainshowdate;
 }
 
-//Listener for Date selection
-document.querySelector('div.days').addEventListener("click", (event)=> {
-    console.log(event.target)
+//Listener for today selection
+document.querySelector('.today').addEventListener("click", (event)=> {
+    console.log(event)
+    $(".today").addClass("selected-date");
+    $(".today").css({'background-color' : 'lightgreen'});
+});
+
+// Listener for Date selection
+document.querySelector('.days').addEventListener('click', (event)=> {
+    $(".full-date1").children().remove();
+    $(".full-date2").children().remove();
+    let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
+    document.querySelector(".full-date1").innerHTML = mainshowdate;
+    document.querySelector('.full-date2').innerHTML = mainshowdate;
+
+    // console.log(event.target)
     if(event.target.classList.value == "prev-date") {
-        // document.querySelector('.full-date2').innerHTML = months[date.getMonth()-1]+" "+event.target.innerHTML+" "+date.getFullYear();
         document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1];
         document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
         document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
     else if(event.target.classList.value == "next-date") {
-        // document.querySelector('.full-date2').innerHTML = months[date.getMonth()+1]+" "+event.target.innerHTML+" "+date.getFullYear();
         document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()+1];
         document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
         document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     }
     else {
-        // document.querySelector('.full-date2').innerHTML = months[date.getMonth()]+" "+event.target.innerHTML+" "+date.getFullYear();
         document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()];
         document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
         document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
@@ -123,16 +140,30 @@ document.querySelector('div.days').addEventListener("click", (event)=> {
         document.querySelector('div.days').classList.remove('selected-date');
     }
 
-    $(document).ready(function() {
-        $(".today").css({'background-color' : 'aqua'}); //still set to Aqua cuz' haven't found a way to delete or reset.
-        $(".selected-date").removeClass("selected-date");
-        event.target.classList.add("selected-date");
-        $(".full-date1").html($(".full-date2").html());
-    });
+    $(".today").css({'background-color' : ''});
+    $(".selected-date").removeClass("selected-date");
+    event.target.classList.add("selected-date");
+    $(".full-date1").html($(".full-date2").html());
+
+    if(mode_day == true) {
+        displayDatabyDay();
+    } else if (mode_week == true) {
+        displayDatabyWeek();
+    } else if (mode_month == true) {
+        displayDatabyMonth();
+    } else if (mode_year == true) {
+        displayDatabyYear();
+    }
 });
 
 //Listener for Month selection
 document.querySelector('div.month').addEventListener('click', (event)=> {
+    $(".full-date1").children().remove();
+    $(".full-date2").children().remove();
+    let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
+    document.querySelector(".full-date1").innerHTML = mainshowdate;
+    document.querySelector('.full-date2').innerHTML = mainshowdate;
+
     date.setMonth(event.target.attributes.value.value);
     document.querySelector('.full-date2 span#xmonth').innerHTML = months[event.target.attributes.value.value];
     document.querySelector('.full-date2 span#xwday').innerHTML = "1";
@@ -141,26 +172,85 @@ document.querySelector('div.month').addEventListener('click', (event)=> {
     loadCalendar();
     if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
         loadCalendar();
-    }
-    else {
+    } else {
         $(document).ready(function() {
             $('div.days > div').not(".prev-date").first().addClass("selected-date");
-        })
+        });
     }
-    console.log(getSelectedDate());
+    if(mode_day == true) {
+        displayDatabyDay();
+    } else if (mode_week == true) {
+        displayDatabyWeek();
+    } else if (mode_month == true) {
+        displayDatabyMonth();
+    } else if (mode_year == true) {
+        
+    }
 });
 
 //Listener for Year selection
-document.querySelector('.toPrevYear').addEventListener('click', (event)=> {
+document.querySelector('#toPrevYear').addEventListener('click', (event)=> {
+    let selectedMonth = document.querySelector('.full-date1 span#xmonth').innerHTML;
+    $(".full-date1").children().remove();
+    $(".full-date2").children().remove();
+    let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
+    document.querySelector(".full-date1").innerHTML = mainshowdate;
+    document.querySelector('.full-date2').innerHTML = mainshowdate;
+
+    document.querySelector('.full-date2 span#xmonth').innerHTML = selectedMonth;
     document.querySelector('.full-date2 span#xwday').innerHTML = "1";
     document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
+
+    if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
+        loadCalendar();
+    } else {
+        $(document).ready(function() {
+            $('div.days > div').not(".prev-date").first().addClass("selected-date");
+        });
+    }
+
+    if(mode_day == true) {
+        displayDatabyDay();
+    } else if (mode_week == true) {
+        displayDatabyWeek();
+    } else if (mode_month == true) {
+        displayDatabyMonth();
+    } else if (mode_year == true) {
+        displayDatabyYear();
+    }
 });
 
-document.querySelector('.toNextYear').addEventListener('click', (event)=> {
+document.querySelector('#toNextYear').addEventListener('click', (event)=> {
+    let selectedMonth = document.querySelector('.full-date1 span#xmonth').innerHTML;
+    $(".full-date1").children().remove();
+    $(".full-date2").children().remove();
+    let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
+    document.querySelector(".full-date1").innerHTML = mainshowdate;
+    document.querySelector('.full-date2').innerHTML = mainshowdate;
+
+    document.querySelector('.full-date2 span#xmonth').innerHTML = selectedMonth;
     document.querySelector('.full-date2 span#xwday').innerHTML = "1";
     document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
     $(".full-date1").html($(".full-date2").html());
+    
+    if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
+        loadCalendar();
+    } else {
+        $(document).ready(function() {
+            $('div.days > div').not(".prev-date").first().addClass("selected-date");
+        });
+    }
+
+    if(mode_day == true) {
+        displayDatabyDay();
+    } else if (mode_week == true) {
+        displayDatabyWeek();
+    } else if (mode_month == true) {
+        displayDatabyMonth();
+    } else if (mode_year == true) {
+        displayDatabyYear();
+    }
 });
 
 /* ////////////////////////////////////MENU CONTAINER SECTION///////////////////////////////////////////// */
@@ -172,22 +262,46 @@ document.querySelector('div.menu').addEventListener('click', (event)=> {
     if(x == "button-day") {
         tabId = "day-tab",
         byParam = "byday"
-        displayDatabyDay();
+        if(mode_day == false) {
+            displayDatabyDay();
+        }
+        mode_day = true;
+        mode_week = false;
+        mode_month = false;
+        mode_year = false;
     }
     else if(x == "button-week") {
         tabId = "week-tab",
         byParam = "byweek"
-        displayDatabyWeek();
+        if(mode_week == false) {
+            displayDatabyWeek();
+        }
+        mode_day = false;
+        mode_week = true;
+        mode_month = false;
+        mode_year = false;
     }
     else if(x == "button-month") {
         tabId = "month-tab",
         byParam = "bymonth"
-        displayDatabyMonth();
+        if(mode_month == false) {
+            displayDatabyMonth();
+        }
+        mode_day = false;
+        mode_week = false;
+        mode_month = true;
+        mode_year = false;
     }
     else if(x == "button-year") {
         tabId = "year-tab",
         byParam = "byyear"
-        displayDatabyYear();
+        if(mode_year == false) {
+            displayDatabyYear();
+        }
+        mode_day = false;
+        mode_week = false;
+        mode_month = false;
+        mode_year = true;
     }
     openTabs(event.target, tabId);
 });
@@ -222,10 +336,14 @@ function openAddEventDialog() {
 }
 
 //Listener for Add Event's Color Selector
-document.querySelectorAll('.material-icons-outlined').forEach(item => {
+document.querySelectorAll('.colorpick').forEach(item => {
     item.addEventListener('click', (event) => {
-        $(`.${event.target.className}`).siblings().prevObject.css({"opacity" : "0"});
-        $(`.${event.target.className}`).siblings().prevObject.removeAttr('id');
+        // console.log($(`.${event.target}`));
+        console.log($('.colorpick > span').siblings().prevObject)
+        // $(`.${event.target.className}`).siblings().prevObject.css({"opacity" : "0"});
+        // $(`.${event.target.className}`).siblings().prevObject.removeAttr('id');
+        $('.colorpick > span').siblings().prevObject.css({"opacity" : "0"});
+        $('.colorpick > span').siblings().prevObject.removeAttr('id');
         $(event.target).css({"opacity":"1"});
         $(event.target).attr('id','selected-color');
         $('#color').val(event.target.parentNode.getAttribute("colorName"));
@@ -278,15 +396,19 @@ function today() {
     setdateString();
     displayDatabyDay();
     openTabs(document.getElementById('button-day'), "day-tab");
+    mode_day = true;
+    mode_week = false;
+    mode_month = false;
+    mode_year = false;
 }
 
 /////////////////////////////////RIGHT SIDE CONTAINER SECTION/////////////////////////////////////////////
 
 //Get current selection Day,Month,Year to use as parameters for pulling data from database
 function getSelectedDate() {
-    let Sday = document.getElementById('xwday').innerText;
-    let Smonth = document.getElementById('xmonth').innerText;
-    let Syear = document.getElementById('xyear').innerText;
+    let Sday = document.querySelector('.full-date1 span#xwday').innerText;
+    let Smonth = document.querySelector('.full-date1 span#xmonth').innerText;
+    let Syear = document.querySelector('.full-date1 span#xyear').innerText;
     let arrSelectedDate = new Array(Sday,Smonth,Syear);
     return arrSelectedDate;
 }
@@ -305,13 +427,26 @@ function openTabs(e, tabId) {
     }
     if(tabId == "year-tab") {
         document.getElementById(tabId).style.display = "flex";
-    } else {
+    } else if (tabId == "month-tab") {
+        document.getElementById(tabId).style.display = "block";
+    } else if (tabId == "week-tab") {
+        document.getElementById(tabId).style.display = "block";
+    } else if (tabId == "day-tab") {
         document.getElementById(tabId).style.display = "block";
     }
     e.className += ' active';
 }
 
 function displayDatabyDay() {
+
+    let selectedDate = new Date(getSelectedDate());
+    let dayofSelectedDate = selectedDate.getDate();
+    let monthofSelectedDate = months[selectedDate.getMonth()];
+    let yearofSelectedDate = selectedDate.getFullYear();
+
+    let showdate = 
+    `<span id="xmonth">${monthofSelectedDate}</span> <span id="xwday">${dayofSelectedDate}</span>, <span id="xyear">${yearofSelectedDate}</span>`;
+    document.querySelector('.full-date2').innerHTML = showdate;
 
     $('#day-table > tbody > tr').remove();
 
@@ -332,13 +467,21 @@ function displayDatabyDay() {
         success: function(data) {
             // console.log(data);
             let obj = JSON.parse(data);
-            console.log(obj)
-            for (let i = 0 ; i < obj.length ; i++) {
+            console.log(obj.length)
+            if(obj.length == 0) {
                 let row = template;
-                row = row.replace("{{[[--time_start--]]}}",obj[i].time_start.substring(0,5));
-                row = row.replace("{{[[--time_end--]]}}",obj[i].time_end.substring(0,5));
-                row = row.replace("{{[[--event_name--]]}}",obj[i].title);
+                row = row.replace("{{[[--time_start--]]}}","-");
+                row = row.replace("{{[[--time_end--]]}}","-");
+                row = row.replace("{{[[--event_name--]]}}","No Event");
                 $('#day-table tbody').append(row)
+            } else {
+                for (let i = 0 ; i < obj.length ; i++) {
+                    let row = template;
+                    row = row.replace("{{[[--time_start--]]}}",obj[i].time_start.substring(0,5));
+                    row = row.replace("{{[[--time_end--]]}}",obj[i].time_end.substring(0,5));
+                    row = row.replace("{{[[--event_name--]]}}",obj[i].title);
+                    $('#day-table tbody').append(row)
+                }
             }
         }
     }).done(function() {
@@ -352,7 +495,15 @@ function displayDatabyDay() {
 
 function displayDatabyWeek() {
 
-    $('#week-table > tbody').css({'background-color' : '' , 'border-color' : ''});
+    $('#week-table td').css({'background-color' : '' , 'border-color' : ''});
+    let selectedDate = new Date(getSelectedDate());
+    let firstWeekDay = new Date(selectedDate.getFullYear(),selectedDate.getMonth(), selectedDate.getDate()-selectedDate.getDay());
+    let LastWeekDay = new Date(selectedDate.getFullYear(),selectedDate.getMonth(), selectedDate.getDate()+(6-selectedDate.getDay()));
+
+    let showdate = 
+    `<span id="xmonth">${months[firstWeekDay.getMonth()]}</span> <span id="xwday">${firstWeekDay.getDate()}</span>, <span id="xyear">${firstWeekDay.getFullYear()}</span>-
+    <span id="xmonth">${months[LastWeekDay.getMonth()]}</span> <span id="xwday">${LastWeekDay.getDate()}</span>, <span id="xyear">${LastWeekDay.getFullYear()}</span>`;
+    document.querySelector('.full-date2').innerHTML = showdate;
 
     let template = 
     "\
@@ -363,23 +514,11 @@ function displayDatabyWeek() {
     </tr> \
     ";
 
-    // <tr id="21:00">
-    //     <td>21.00</td>
-    //     <td class="wSUN"></td>
-    //     <td class="wMON"></td>
-    //     <td class="wTUE"></td>
-    //     <td class="wWED"></td>
-    //     <td class="wTHU"></td>
-    //     <td class="wFRI"></td>
-    //     <td class="wSAT" style="background-color: yellow;"></td>
-    // </tr>
-
     $.ajax({
         url: "output/get_data_byweek.php",
         type: "POST",
         data: {selectedDate : getSelectedDate()},
         success: function(data) {
-            // console.log("DATA: "+data);
             let obj = JSON.parse(data);
             console.log(obj)
             for (let i = 0 ; i < obj.length ; i++) {
@@ -412,6 +551,14 @@ function displayDatabyWeek() {
 
 function displayDatabyMonth() {
 
+    let selectedDate = new Date(getSelectedDate());
+    let monthofSelectedDate = months[selectedDate.getMonth()];
+    let yearofSelectedDate = selectedDate.getFullYear();
+
+    let showdate = 
+    `<span id="xmonth">${monthofSelectedDate}</span> <span id="xwday"></span> <span id="xyear">${yearofSelectedDate}</span>`;
+    document.querySelector('.full-date2').innerHTML = showdate;
+
     $('#month-table > tbody > tr').remove();
 
     let template = 
@@ -431,13 +578,21 @@ function displayDatabyMonth() {
             // console.log(data);
             let obj = JSON.parse(data);
             console.log(obj)
-            for (let i = 0 ; i < obj.length ; i++) {
-                let newDateFormat = obj[i].date_start.split('-');
+            if(obj.length == 0) {
                 let row = template;
-                row = row.replace("{{[[--date_start--]]}}",newDateFormat[2]+"-"+months[parseInt(newDateFormat[1])-1]);
-                row = row.replace("{{[[--event_name--]]}}",obj[i].title);
-                row = row.replace("{{[[--time--]]}}",obj[i].time_start.substring(0,5)+"-"+obj[i].time_end.substring(0,5));
-                $('#month-table tbody').append(row)
+                    row = row.replace("{{[[--date_start--]]}}","-");
+                    row = row.replace("{{[[--event_name--]]}}","No Event");
+                    row = row.replace("{{[[--time--]]}}","-");
+                    $('#month-table tbody').append(row);
+            } else {
+                for (let i = 0 ; i < obj.length ; i++) {
+                    let newDateFormat = obj[i].date_start.split('-');
+                    let row = template;
+                    row = row.replace("{{[[--date_start--]]}}",newDateFormat[2]+"-"+months[parseInt(newDateFormat[1])-1]);
+                    row = row.replace("{{[[--event_name--]]}}",obj[i].title);
+                    row = row.replace("{{[[--time--]]}}",obj[i].time_start.substring(0,5)+"-"+obj[i].time_end.substring(0,5));
+                    $('#month-table tbody').append(row);
+                }
             }
         }
     }).done(function() {
@@ -450,8 +605,15 @@ function displayDatabyMonth() {
 }
 
 function displayDatabyYear() {
+    let selectedDate = new Date(getSelectedDate());
+    let yearofSelectedDate = selectedDate.getFullYear();
+
+    let showdate = 
+    `<span id="xmonth"></span> <span id="xwday"></span> <span id="xyear">${yearofSelectedDate}</span>`;
+    document.querySelector('.full-date2').innerHTML = showdate;
 
     $('.year-inner-days').remove();
+    $('.year-inner > h4').remove();
 
     let template = 
     '\
@@ -494,7 +656,6 @@ function displayDatabyYear() {
             //Append "No Event"
             for (let i = 0 ; i <= 11 ; i++) {
                 let m = months[i].toLowerCase(); //jan jul
-                // console.log($(`#${m}`)[0].firstElementChild);
                 if ($(`#${m}`)[0].firstElementChild == null) {
                     $(`#${m}`).append(noEventTemplate);
                 }
@@ -508,3 +669,11 @@ function displayDatabyYear() {
         console.log("Complete.");
     });
 }
+
+    
+// openTabs(document.getElementById('button-month'), "month-tab");
+// displayDatabyMonth();
+// mode_day = false;
+// mode_week = false;
+// mode_month = true;
+// mode_year = false;

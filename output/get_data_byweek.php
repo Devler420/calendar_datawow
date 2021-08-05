@@ -11,7 +11,11 @@
     $fulldate = $day."-".$month."-".$year;
     $newDate = new DateTime($fulldate);
     $week = $newDate->format("W");
-    
+    $dayofweek = $newDate->format("l");
+    if($dayofweek == "Sunday") {
+        $week += 1;
+    }
+
     $data = pulldataByWeek($week);
     $data_json = json_encode($data);
     print_r($data_json);

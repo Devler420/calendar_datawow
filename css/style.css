@@ -33,7 +33,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: lightpink;
+    background-color: cadetblue;
     text-align: center;
 }
 
@@ -43,7 +43,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0.5rem;
-    background-color: lightgreen;
+    background-color: gainsboro;
 }
 
 .weekdays {
@@ -52,7 +52,7 @@
     justify-content: flex;
     align-items: center;
     padding: 0.5rem 0rem;
-    background-color: lightyellow;
+    background-color: aliceblue;
 }
 
 .weekdays div {
@@ -68,7 +68,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 0.5rem 0;
-    background-color: aqua;
+    background-color: lightblue;
 }
 
 .days div {
@@ -80,8 +80,9 @@
     align-items: center;
 }
 
-.today , .selected-date {
+.selected-date {
     background-color: lightgreen;
+    border-radius: 100%;
 }
 
 .add-event {
@@ -97,14 +98,24 @@
     cursor: pointer;
 }
 
-.days div:hover:not(.today) {
-    /* background-color: blue; */
+/* .days div:hover:not(.today) {
     border: 0.1rem solid black;
+    cursor: pointer;
+} */
+
+.days div:hover {
+    border: 0.1rem solid black;
+    border-radius: 100%;
     cursor: pointer;
 }
 
 .prev-date, .next-date {
     opacity: 0.5;
+}
+
+#toPrevYear, #toNextYear {
+    font-size: 24px;
+    cursor: pointer;
 }
 
 /* ////////////////////////////////////MENU CONTAINER SECTION///////////////////////////////////////////// */
@@ -150,12 +161,27 @@
     position: absolute;
     height: auto;
     width: 30rem;
-    z-index: 101;
     display: none;
 }
 
 textarea {
     resize: none;
+}
+
+fieldset > div {
+    padding: 1px 4px 1px 4px;
+}
+
+fieldset > div > input[type=submit] {
+    width: 100%;
+    font-weight: bold;
+    background-color: lightgreen;
+}
+
+fieldset > div > input[type=submit]:hover {
+    transition-duration: 0.1s;
+    background-color: rgb(54, 230, 54);
+    cursor: pointer;
 }
 
 .colorpick {
@@ -170,6 +196,10 @@ textarea {
     /* background-color: #e8eaed; */
 }
 
+.active {
+    background-color: greenyellow;
+}
+
 /* Google Material Icon */
 @font-face {
     font-family: 'Material Icons Outlined';
@@ -178,7 +208,7 @@ textarea {
     src: url(https://fonts.gstatic.com/s/materialiconsoutlined/v70/gok-H7zzDkdnRel8-DQ6KAXJ69wP1tGnf4ZGhUce.woff2) format('woff2');
   }
   
-  .material-icons-outlined {
+.material-icons-outlined {
     font-family: 'Material Icons Outlined';
     font-weight: normal;
     font-style: normal;
@@ -192,19 +222,25 @@ textarea {
     direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
-  }
+}
+
+#dialog-close {
+    font-size: 24px;
+    cursor: pointer;
+}
 
 /* /////////////////////////////////RIGHT SIDE CONTAINER SECTION///////////////////////////////////////////// */
 
 .full-date2 {
     font-size: 3rem;
     width: 100%;
+    text-align: center;
+    background-color: palegoldenrod;
 }
 
 .event-container {
     width: 30rem;
     height: 30rem;
-    background-color: lightblue;
     flex-basis: 50%;
 }
 
@@ -290,47 +326,6 @@ textarea {
 
 #week-table tr:hover {
     /* background-color: red; */
-}
-
-/* Sample from Google */
-.weekevent-box {
-    top: 479px;
-    height: 1.25rem;
-    left: calc((100% - 0px) * 0 + 0px);
-    width: calc((100% - 0px) * 1);
-    z-index: 6;
-    background-color: rgb(121, 134, 203);
-    border-color: rgb(121, 134, 203);
-}
-
-.weekevent-box2 {
-    top: 479px;
-    height: 1.25rem;
-    left: calc((100% - 0px) * 0.05 + 0px);
-    width: calc((100% - 0px) * 1);
-    z-index: 6;
-    background-color: rgb(13, 238, 24);
-    border-color: rgb(121, 134, 203);
-}
-
-.weekevent-box3 {
-    top: 479px;
-    height: 1.25rem;
-    left: calc((100% - 0px) * 0 + 0px);
-    width: calc((100% - 0px) * 0.5);
-    z-index: 6;
-    background-color: rgb(0, 38, 255);
-    border-color: rgb(0, 0, 0);
-}
-
-.weekevent-box4 {
-    top: 479px;
-    height: 1.25rem;
-    left: calc((100% - 0px) * 0 + 0px);
-    width: calc((100% - 0px) * 1);
-    z-index: 6;
-    background-color: rgb(4, 0, 255);
-    border-color: rgb(121, 134, 203);
 }
 
 /* Month-table */

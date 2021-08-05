@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=chrome">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WowWee Caldendar</title>
+    <title>Calendar</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/jquery.timepicker.min.css">
@@ -20,12 +20,12 @@
 <body onload="setdateString();">
 
     <div id="dialog-form" title="Add Event">
-        <div style="display: flex; width: 100%; justify-content: space-between; cursor: move;">
-            <p>Setting up your event.</p>
-            <button id="dialog-close" onclick="closeAddEventDialog()">X</button>
+        <div style="display: flex; width: 100%; justify-content: space-between; cursor: move; border: 1px solid black; background-color: lemonchiffon;">
+            <p style="padding-left: 4px;"><strong>Setting up your event.</strong></p>
+            <span class="material-icons-outlined" id="dialog-close" onclick="closeAddEventDialog()">close</span>
         </div>
         <form action="" method="POST" autocomplete="off" id="event_data">
-            <fieldset>
+            <fieldset style="padding: 2px 0;">
                 <div>
                     <label>Event Title</label>
                     <input type="text" name="eventTitle" id="event_name" size="50"/>
@@ -56,28 +56,28 @@
                     <div class="colorpick" style="background-color: #a0c4ff" colorName="#a0c4ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
                     <div class="colorpick" style="background-color: #bdb2ff" colorName="#bdb2ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
                     <div class="colorpick" style="background-color: #ffc6ff" colorName="#ffc6ff"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
-                    <input type="text" name="color" id="color"/>
+                    <input type="text" name="color" id="color" style="display: none;"/>
                 </div>
                 <div>
-                    <button type="submit" name="submit" value="submit" onclick="submitEventDetails();">Add Event</button>
+                    <input type="submit" name="submit" value="Add Event" onclick="submitEventDetails();"></input>
                 </div>
             </fieldset>
         </form>
     </div>
 
     <div class="heading">
-        <h1>Better than Google Calendar</h1>
+        <h1>"The Calendar"</h1>
     </div>
 
     <div class="container">
         <div class="calendar-container">
             <div class="year">
-                <button onclick="toPrevYear()" class="toPrevYear">&#60;</button>
+                <span class="material-icons-outlined" onclick="toPrevYear()" id="toPrevYear">arrow_back_ios</span>
                     <div>
                         <h1></h1>
                         <p class="full-date1"></p>
                     </div>
-                <button onclick="toNextYear()" class="toNextYear">&#62;</button>
+                <span class="material-icons-outlined" onclick="toNextYear()" id="toNextYear">arrow_forward_ios</span>
             </div>
             <div class="month">
                 <div value="0">JAN</div>
@@ -142,7 +142,7 @@
             </div>
 
             <!-- Week-tab -->
-            <div id="week-tab"  class="event-tab" >
+            <div id="week-tab"  class="event-tab" style="position: relative;">
                 <table id="week-table">
                     <thead>
                         <th>Time</th>
@@ -400,7 +400,7 @@
             </div>
 
             <!-- Month-tab -->
-            <div id="month-tab" class="event-tab" style="display: block;">
+            <div id="month-tab" class="event-tab">
                 <table id="month-table">
                     <thead>
                         <th>Date</th>
