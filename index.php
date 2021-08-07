@@ -10,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="css/jquery.timepicker.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body onload="setdateString();">
+<body>
 
     <div id="dialog-form" title="Add Event">
         <div style="display: flex; width: 100%; justify-content: space-between; cursor: move; border: 1px solid black; background-color: lemonchiffon;">
@@ -26,28 +26,28 @@
         </div>
         <form action="" method="POST" autocomplete="off" id="event_data">
             <fieldset style="padding: 2px 0;">
-                <div>
-                    <label>Event Title</label>
+                <div style="display: flex;">
+                    <label style="padding-right: 12px;">Event Title</label>
                     <input type="text" name="eventTitle" id="event_name" size="50"/>
                 </div>
-                <div>
-                    <label>Description</label>
+                <div style="display: flex;">
+                    <label style="padding-right: 6px;">Description</label>
                     <textarea type="text" name="eventDesc" id="event_desc" rows="3" cols="50"></textarea>
                 </div>
-                <div>
-                    <label>Date Start</label>
-                    <input type="text" name="eventDateStart" id="date_start"/>
-                    <label>Time Start</label>
-                    <input type="text" name="eventTimeStart" id="time_start"/>
+                <div style="display: flex; align-items: center;">
+                    <label style="padding-right: 12px;">Date Start</label>
+                    <input type="text" name="eventDateStart" id="date_start" style="width: 20%;"/>
+                    <label style="padding: 0 10px 0 10px;">Time Start</label>
+                    <input type="text" name="eventTimeStart" id="time_start" style="width: 20%;"/>
                 </div>
-                <div>
-                    <label>Date End</label>
-                    <input type="text" name="eventDateEnd" id="date_end"/>
-                    <label>Time End</label>
-                    <input type="text" name="eventTimeEnd" id="time_end"/>
+                <div style="display: flex; align-items: center;">
+                    <label style="padding-right: 23px;">Date End</label>
+                    <input type="text" name="eventDateEnd" id="date_end" style="width: 20%;"/>
+                    <label style="padding: 0 20px 0 10px;">Time End</label>
+                    <input type="text" name="eventTimeEnd" id="time_end" style="width: 20%;"/>
                 </div>
-                <div style="display: inline-flex; align-items: center; margin: 3px 0px;">
-                    <div style="margin-right: 10px;">Color</div>
+                <div style="display: flex; align-items: center; margin: 3px 0px;">
+                    <div style="margin-right: 10px; font-weight: bold;">Color</div>
                     <div class="colorpick" style="background-color: #ffadad" colorName="#ffadad"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
                     <div class="colorpick" style="background-color: #ffd6a5" colorName="#ffd6a5"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
                     <div class="colorpick" style="background-color: #fdffb6" colorName="#fdffb6"><span class="material-icons-outlined" style="opacity: 0;">done</span></div>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="heading">
-        <h1>"The Calendar"</h1>
+        <h1>Calendar Wow</h1>
     </div>
 
     <div class="container">
@@ -107,7 +107,6 @@
         </div>
 
         <div class="menu-container">
-            <!-- change from button => picture/something later // or maybe change to drop-down -->
             <div id="button-today" onclick="today()">
                 <strong>TODAY</strong>
             </div>
@@ -120,6 +119,7 @@
             <div id="button-add-event">
                 <strong>ADD EVENT</strong>
             </div>
+            <span class="material-icons-outlined" id="pin">push_pin</span>
         </div>
 
         <div class="event-container">
@@ -131,9 +131,11 @@
             <div id="day-tab"   class="event-tab">
                 <table id="day-table">
                     <thead>
-                        <th>Start Time</th>
-                        <th>End Time</th>
-                        <th>Event</th>
+                        <tr style="background-color: #04AA6D; color: white;">
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Event</th>
+                        </tr>
                     </thead>
                     <tbody>
                         
@@ -145,14 +147,16 @@
             <div id="week-tab"  class="event-tab" style="position: relative;">
                 <table id="week-table">
                     <thead>
-                        <th>Time</th>
-                        <th>SUN</th>
-                        <th>MON</th>
-                        <th>TUE</th>
-                        <th>WED</th>
-                        <th>THU</th>
-                        <th>FRI</th>
-                        <th>SAT</th>
+                        <tr style="color: white;">
+                            <th>Time</th>
+                            <th>SUN</th>
+                            <th>MON</th>
+                            <th>TUE</th>
+                            <th>WED</th>
+                            <th>THU</th>
+                            <th>FRI</th>
+                            <th>SAT</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr id="00:00">
@@ -403,9 +407,11 @@
             <div id="month-tab" class="event-tab">
                 <table id="month-table">
                     <thead>
-                        <th>Date</th>
-                        <th>Event</th>
-                        <th>Time</th>
+                        <tr style="background-color: #04AA6D; color: white;">
+                            <th>Date</th>
+                            <th>Event</th>
+                            <th>Time</th>
+                        </tr>
                     </thead>
                     <tbody>
                         
@@ -491,10 +497,15 @@
 
         </div>
     </div>
-    <script src="js/script.js"></script>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
     <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
+    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="js/datepair.js"></script>
     <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>

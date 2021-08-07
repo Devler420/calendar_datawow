@@ -19,13 +19,13 @@ const months = [
 ];
 
 const weekdays = [
-    "Sat",
+    "Sun",
     "Mon",
     "Tue",
     "Wed",
     "Thu",
     "Fri",
-    "Sun"
+    "Sat"
 ];
 
 var mode_day = false;
@@ -77,6 +77,7 @@ function loadCalendar() {
         }
     }
     daysInMonth.innerHTML = days;
+    addListenertoDateSelection()
 }
 
 loadCalendar();
@@ -106,86 +107,92 @@ function setdateString() {
 
 //Listener for today selection
 document.querySelector('.today').addEventListener("click", (event)=> {
-    console.log(event)
     $(".today").addClass("selected-date");
     $(".today").css({'background-color' : 'lightgreen'});
 });
 
 // Listener for Date selection
-document.querySelector('.days').addEventListener('click', (event)=> {
-    $(".full-date1").children().remove();
-    $(".full-date2").children().remove();
-    let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
-    document.querySelector(".full-date1").innerHTML = mainshowdate;
-    document.querySelector('.full-date2').innerHTML = mainshowdate;
+function addListenertoDateSelection() {
+    document.querySelectorAll('.days > div').forEach(item => {
+        item.addEventListener('click', (event) => {
+            $(".full-date1").children().remove();
+            $(".full-date2").children().remove();
+            let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
+            document.querySelector(".full-date1").innerHTML = mainshowdate;
+            document.querySelector('.full-date2').innerHTML = mainshowdate;
+    
+            // console.log(event.target)
+            if(event.target.classList.value == "prev-date") {
+                document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1];
+                document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
+                document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
+            }
+            else if(event.target.classList.value == "next-date") {
+                document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()+1];
+                document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
+                document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
+            }
+            else {
+                document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()];
+                document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
+                document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
+            }
+    
+            if(document.querySelector('div.days').classList.contains('selected-date')) {
+                document.querySelector('div.days').classList.remove('selected-date');
+            }
+    
+            $(".today").css({'background-color' : ''});
+            $(".selected-date").removeClass("selected-date");
+            event.target.classList.add("selected-date");
+            $(".full-date1").html($(".full-date2").html());
+    
+            if(mode_day == true) {
+                displayDatabyDay();
+            } else if (mode_week == true) {
+                displayDatabyWeek();
+            } else if (mode_month == true) {
+                displayDatabyMonth();
+            } else if (mode_year == true) {
+                displayDatabyYear();
+            }
+        })
+    });
+}
 
-    // console.log(event.target)
-    if(event.target.classList.value == "prev-date") {
-        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1];
-        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
-        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
-    }
-    else if(event.target.classList.value == "next-date") {
-        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()+1];
-        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
-        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
-    }
-    else {
-        document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()];
-        document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
-        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
-    }
-
-    if(document.querySelector('div.days').classList.contains('selected-date')) {
-        document.querySelector('div.days').classList.remove('selected-date');
-    }
-
-    $(".today").css({'background-color' : ''});
-    $(".selected-date").removeClass("selected-date");
-    event.target.classList.add("selected-date");
-    $(".full-date1").html($(".full-date2").html());
-
-    if(mode_day == true) {
-        displayDatabyDay();
-    } else if (mode_week == true) {
-        displayDatabyWeek();
-    } else if (mode_month == true) {
-        displayDatabyMonth();
-    } else if (mode_year == true) {
-        displayDatabyYear();
-    }
-});
 
 //Listener for Month selection
-document.querySelector('div.month').addEventListener('click', (event)=> {
-    $(".full-date1").children().remove();
-    $(".full-date2").children().remove();
-    let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
-    document.querySelector(".full-date1").innerHTML = mainshowdate;
-    document.querySelector('.full-date2').innerHTML = mainshowdate;
+document.querySelectorAll('.month > div').forEach(item => {
+    item.addEventListener('click', (event) => {
+        $(".full-date1").children().remove();
+        $(".full-date2").children().remove();
+        let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
+        document.querySelector(".full-date1").innerHTML = mainshowdate;
+        document.querySelector('.full-date2').innerHTML = mainshowdate;
 
-    date.setMonth(event.target.attributes.value.value);
-    document.querySelector('.full-date2 span#xmonth').innerHTML = months[event.target.attributes.value.value];
-    document.querySelector('.full-date2 span#xwday').innerHTML = "1";
-    document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
-    $(".full-date1").html($(".full-date2").html());
-    loadCalendar();
-    if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
+        date.setMonth(event.target.attributes.value.value);
+        document.querySelector('.full-date2 span#xmonth').innerHTML = months[event.target.attributes.value.value];
+        document.querySelector('.full-date2 span#xwday').innerHTML = "1";
+        document.querySelector('.full-date2 span#xyear').innerHTML = date.getFullYear();
+        $(".full-date1").html($(".full-date2").html());
         loadCalendar();
-    } else {
-        $(document).ready(function() {
-            $('div.days > div').not(".prev-date").first().addClass("selected-date");
-        });
-    }
-    if(mode_day == true) {
-        displayDatabyDay();
-    } else if (mode_week == true) {
-        displayDatabyWeek();
-    } else if (mode_month == true) {
-        displayDatabyMonth();
-    } else if (mode_year == true) {
-        
-    }
+        if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
+            loadCalendar();
+        } else {
+            $(document).ready(function() {
+                $('div.days > div').not(".prev-date").first().addClass("selected-date");
+            });
+        }
+        if(mode_day == true) {
+            displayDatabyDay();
+        } else if (mode_week == true) {
+            displayDatabyWeek();
+        } else if (mode_month == true) {
+            displayDatabyMonth();
+        } else if (mode_year == true) {
+            
+        }
+    })
 });
 
 //Listener for Year selection
@@ -256,54 +263,56 @@ document.querySelector('#toNextYear').addEventListener('click', (event)=> {
 /* ////////////////////////////////////MENU CONTAINER SECTION///////////////////////////////////////////// */
 
 //Listener for Menu selection
-document.querySelector('div.menu').addEventListener('click', (event)=> {
-    let x = event.target.id;
-    let tabId, byParam;
-    if(x == "button-day") {
-        tabId = "day-tab",
-        byParam = "byday"
-        if(mode_day == false) {
-            displayDatabyDay();
+document.querySelectorAll('.menu > div').forEach(item => {
+    item.addEventListener('click', (event) => {
+        let x = event.target.id;
+        let tabId, byParam;
+        if(x == "button-day") {
+            tabId = "day-tab",
+            byParam = "byday"
+            if(mode_day == false) {
+                displayDatabyDay();
+            }
+            mode_day = true;
+            mode_week = false;
+            mode_month = false;
+            mode_year = false;
         }
-        mode_day = true;
-        mode_week = false;
-        mode_month = false;
-        mode_year = false;
-    }
-    else if(x == "button-week") {
-        tabId = "week-tab",
-        byParam = "byweek"
-        if(mode_week == false) {
-            displayDatabyWeek();
+        else if(x == "button-week") {
+            tabId = "week-tab",
+            byParam = "byweek"
+            if(mode_week == false) {
+                displayDatabyWeek();
+            }
+            mode_day = false;
+            mode_week = true;
+            mode_month = false;
+            mode_year = false;
         }
-        mode_day = false;
-        mode_week = true;
-        mode_month = false;
-        mode_year = false;
-    }
-    else if(x == "button-month") {
-        tabId = "month-tab",
-        byParam = "bymonth"
-        if(mode_month == false) {
-            displayDatabyMonth();
+        else if(x == "button-month") {
+            tabId = "month-tab",
+            byParam = "bymonth"
+            if(mode_month == false) {
+                displayDatabyMonth();
+            }
+            mode_day = false;
+            mode_week = false;
+            mode_month = true;
+            mode_year = false;
         }
-        mode_day = false;
-        mode_week = false;
-        mode_month = true;
-        mode_year = false;
-    }
-    else if(x == "button-year") {
-        tabId = "year-tab",
-        byParam = "byyear"
-        if(mode_year == false) {
-            displayDatabyYear();
+        else if(x == "button-year") {
+            tabId = "year-tab",
+            byParam = "byyear"
+            if(mode_year == false) {
+                displayDatabyYear();
+            }
+            mode_day = false;
+            mode_week = false;
+            mode_month = false;
+            mode_year = true;
         }
-        mode_day = false;
-        mode_week = false;
-        mode_month = false;
-        mode_year = true;
-    }
-    openTabs(event.target, tabId);
+        openTabs(event.target, tabId);
+    })
 });
 
 //Listener for Add Event button
@@ -318,11 +327,9 @@ function openAddEventDialog() {
     $('#dialog-form').draggable();
     $('#date_start').datepicker({
         dateFormat: 'dd-M-yy'
-        // dateFormat: 'dd-m-yy'
     }); 
     $('#date_end').datepicker({
         dateFormat: 'dd-M-yy',
-        // dateFormat: 'dd-m-yy',
         'autoclose': true
     }); 
     $('#time_start').timepicker({
@@ -338,10 +345,6 @@ function openAddEventDialog() {
 //Listener for Add Event's Color Selector
 document.querySelectorAll('.colorpick').forEach(item => {
     item.addEventListener('click', (event) => {
-        // console.log($(`.${event.target}`));
-        console.log($('.colorpick > span').siblings().prevObject)
-        // $(`.${event.target.className}`).siblings().prevObject.css({"opacity" : "0"});
-        // $(`.${event.target.className}`).siblings().prevObject.removeAttr('id');
         $('.colorpick > span').siblings().prevObject.css({"opacity" : "0"});
         $('.colorpick > span').siblings().prevObject.removeAttr('id');
         $(event.target).css({"opacity":"1"});
@@ -465,9 +468,7 @@ function displayDatabyDay() {
         type: "POST",
         data: {selectedDate : getSelectedDate()},
         success: function(data) {
-            // console.log(data);
             let obj = JSON.parse(data);
-            console.log(obj.length)
             if(obj.length == 0) {
                 let row = template;
                 row = row.replace("{{[[--time_start--]]}}","-");
@@ -520,7 +521,6 @@ function displayDatabyWeek() {
         data: {selectedDate : getSelectedDate()},
         success: function(data) {
             let obj = JSON.parse(data);
-            console.log(obj)
             for (let i = 0 ; i < obj.length ; i++) {
                 let row = template;
                 let weekdayID = "w"+weekdays[new Date(obj[i].date_start).getDay()].toUpperCase();
@@ -575,9 +575,7 @@ function displayDatabyMonth() {
         type: "POST",
         data: {selectedDate : getSelectedDate()},
         success: function(data) {
-            // console.log(data);
             let obj = JSON.parse(data);
-            console.log(obj)
             if(obj.length == 0) {
                 let row = template;
                     row = row.replace("{{[[--date_start--]]}}","-");
@@ -631,10 +629,8 @@ function displayDatabyYear() {
         data: {selectedDate : getSelectedDate()},
         success: function(data) {
             let obj = JSON.parse(data);
-            console.log(obj)
             let dulplicateEvent = 1;
             for (let i = 0 ; i < obj.length ; i++) {
-                // console.log(obj[i]);
                 if(i != obj.length-1 && obj[i].date_start == obj[i+1].date_start) {
                     dulplicateEvent++;
                     continue;
@@ -670,10 +666,10 @@ function displayDatabyYear() {
     });
 }
 
-    
-// openTabs(document.getElementById('button-month'), "month-tab");
-// displayDatabyMonth();
-// mode_day = false;
-// mode_week = false;
-// mode_month = true;
-// mode_year = false;
+setdateString();
+openTabs(document.getElementById('button-month'), "month-tab");
+displayDatabyMonth();
+mode_day = false;
+mode_week = false;
+mode_month = true;
+mode_year = false;

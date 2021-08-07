@@ -7,24 +7,35 @@
 
 .heading {
     width: 100%;
+    padding-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.heading h1 {
+    border: 5px solid #04AA6D;
+    box-shadow: 3px 3px 3px 3px #04AA6D;
+    background-color: #04AA6D;
+    border-radius: 2%;
+    padding: 10px;
+    font-size: 56px;
+    color: white;
+}
+
 .container {
     width: 100%;
     height: auto;
-    padding-top: 4rem;
+    padding-top: 2rem;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .calendar-container {
-    width: 30rem;
+    width: 30.1rem;
     height: 30rem;
-    background-color: red;
+    border: 1px solid rgb(198, 225, 248,0.9);
 }
 
 .year {
@@ -33,8 +44,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: cadetblue;
+    background-color: #04AA6D;
     text-align: center;
+    color: white;
 }
 
 .month {
@@ -81,7 +93,7 @@
 }
 
 .selected-date {
-    background-color: lightgreen;
+    background-color: rgb(6, 214, 93);
     border-radius: 100%;
 }
 
@@ -97,11 +109,6 @@
     border: 0.1rem solid black;
     cursor: pointer;
 }
-
-/* .days div:hover:not(.today) {
-    border: 0.1rem solid black;
-    cursor: pointer;
-} */
 
 .days div:hover {
     border: 0.1rem solid black;
@@ -146,14 +153,31 @@
     text-align: center;
 }
 
+#pin {
+    position: relative;
+    top: -49px;
+    left: 100px;
+    font-size: 24px;
+    cursor: default;
+}
+
 .menu div:hover {
-    /* background-color: blue; */
     border: 0.1rem solid black;
     cursor: pointer;
 }
 
-#button-add-event , #button-today:hover {
+#button-add-event:hover , #button-today:hover {
+    background-color:gainsboro;
     cursor: pointer;
+}
+
+.tablink:hover:not(.active) {
+    background-color: gainsboro;
+}
+
+.active {
+    background-color: rgb(4,255,109);
+    font-weight: bold;
 }
 
 #dialog-form {
@@ -162,6 +186,9 @@
     height: auto;
     width: 30rem;
     display: none;
+    z-index: 100;
+    top: 45%;
+    left: 30%;
 }
 
 textarea {
@@ -170,6 +197,10 @@ textarea {
 
 fieldset > div {
     padding: 1px 4px 1px 4px;
+}
+
+fieldset > div > label {
+    font-weight: bold;
 }
 
 fieldset > div > input[type=submit] {
@@ -194,10 +225,6 @@ fieldset > div > input[type=submit]:hover {
     cursor: pointer;
     position: relative;
     /* background-color: #e8eaed; */
-}
-
-.active {
-    background-color: greenyellow;
 }
 
 /* Google Material Icon */
@@ -232,16 +259,20 @@ fieldset > div > input[type=submit]:hover {
 /* /////////////////////////////////RIGHT SIDE CONTAINER SECTION///////////////////////////////////////////// */
 
 .full-date2 {
+    color: white;
     font-size: 3rem;
     width: 100%;
     text-align: center;
-    background-color: palegoldenrod;
+    background-color: #04AA6D;
+    font-weight: 600;
 }
 
 .event-container {
     width: 30rem;
     height: 30rem;
     flex-basis: 50%;
+    background-color: aliceblue;
+    border: 1px solid rgb(198, 225, 248,0.9);
 }
 
 .event-tab {
@@ -267,24 +298,24 @@ fieldset > div > input[type=submit]:hover {
     padding: 0.25rem;
 }
 
-#day-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+#day-table tbody tr {
+    background-color: white;
 }
 
 #day-table tr:hover {
-    background-color: red;
+    background-color: gainsboro;
 }
 
 #day-table td:nth-child(1) {
-    width: 12%;
+    width: 14%;
 }
 
 #day-table td:nth-child(2) {
-    width: 12%;
+    width: 14%;
 }
 
 #day-table td:nth-child(3) {
-    width: 76%;
+    width: 72%;
     text-align: left;
 }
 
@@ -344,12 +375,12 @@ fieldset > div > input[type=submit]:hover {
     padding: 0.25rem;
 }
 
-#month-table tr:nth-child(even) {
-    background-color: #f2f2f2;
+#month-table tbody tr {
+    background-color: white;
 }
 
 #month-table tr:hover {
-    background-color: red;
+    background-color: gainsboro;
 }
 
 #month-table td:nth-child(1) {
@@ -370,15 +401,18 @@ fieldset > div > input[type=submit]:hover {
 /* Year-tab */
 
 #year-tab {
+    padding-top: 15px;
     flex-wrap: wrap;
     overflow: auto;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    overflow: auto;
 }
 
 .year-outer h3 {
     background-color: #04AA6D;
     text-align: center;
+    color: white;
 }
 
 .year-outer {
@@ -394,12 +428,18 @@ fieldset > div > input[type=submit]:hover {
     flex-wrap: wrap;
     text-align: center;
     justify-content: space-around;
+    background-color: white;
 }
 
 .year-inner-days {
     margin: 4px 0;
     width: 30%;
     border: 1px solid black;
+}
+
+.year-inner-days:hover {
+    cursor: pointer;
+
 }
 
 .year-inner-days #year-days {
