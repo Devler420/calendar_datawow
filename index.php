@@ -16,19 +16,26 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="dialog-form" title="Add Event">
+    <div id="dialog-form">
         <div style="display: flex; width: 100%; justify-content: space-between; cursor: move; border: 1px solid black; background-color: lemonchiffon;">
-            <p style="padding-left: 4px;"><strong>Setting up your event.</strong></p>
+            <p id="dialogHeading">Setting up your event.</p>
             <span class="material-icons-outlined" id="dialog-close" onclick="closeAddEventDialog()">close</span>
         </div>
         <form action="" method="POST" autocomplete="off" id="event_data">
             <fieldset style="padding: 2px 0;">
+                <div style="display: none;">
+                    <label>ID</label>
+                    <input type="text" name="eventID" id="event_id"/>
+                </div>
                 <div style="display: flex;">
                     <label style="padding-right: 12px;">Event Title</label>
-                    <input type="text" name="eventTitle" id="event_name" size="50"/>
+                    <input type="text" name="eventTitle" id="event_name" size="50" title="Event's name"/>
                 </div>
                 <div style="display: flex;">
                     <label style="padding-right: 6px;">Description</label>
@@ -59,7 +66,8 @@
                     <input type="text" name="color" id="color" style="display: none;"/>
                 </div>
                 <div>
-                    <input type="submit" name="submit" value="Add Event" onclick="submitEventDetails();"></input>
+                    <input type="submit" name="submit" value="Add Event" id="addEventButton" onclick="submitEventDetails();"></input>
+                    <input type="submit" name="submit" value="Edit Event" id="editEventButton" onclick="updateEventDetails();"></input>
                 </div>
             </fieldset>
         </form>
@@ -111,7 +119,7 @@
                 <strong>TODAY</strong>
             </div>
             <div class="menu">
-                <div id="button-day" class="tablink active">DAY</div>
+                <div id="button-day" class="tablink">DAY</div>
                 <div id="button-week" class="tablink">WEEK</div>
                 <div id="button-month" class="tablink">MONTH</div>
                 <div id="button-year" class="tablink">YEAR</div>
@@ -132,13 +140,14 @@
                 <table id="day-table">
                     <thead>
                         <tr style="background-color: #04AA6D; color: white;">
+                            <th>ID</th>
                             <th>Start Time</th>
                             <th>End Time</th>
                             <th>Event</th>
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -408,6 +417,7 @@
                 <table id="month-table">
                     <thead>
                         <tr style="background-color: #04AA6D; color: white;">
+                            <th>ID</th>
                             <th>Date</th>
                             <th>Event</th>
                             <th>Time</th>

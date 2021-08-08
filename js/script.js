@@ -33,6 +33,8 @@ var mode_week = false;
 var mode_month = false;
 var mode_year = false;
 
+var mode_CreateEvent = false;
+
 function loadCalendar() {
     //getMonth() index number starts from 0
     const month = date.getMonth();
@@ -317,11 +319,11 @@ document.querySelectorAll('.menu > div').forEach(item => {
 
 //Listener for Add Event button
 document.querySelector('#button-add-event').addEventListener('click', (event)=> {
+    mode_CreateEvent = true;
     openAddEventDialog();
 });
 
 function openAddEventDialog() {
-
     document.getElementById('dialog-form').style.display = "block";
 
     $('#dialog-form').draggable();
@@ -340,6 +342,28 @@ function openAddEventDialog() {
         'showDuration': true,
         'timeFormat': 'H:i:s'
     });
+
+    $('#event_id').val('');
+    $('#event_name').val('');
+    $('#event_desc').val('');
+    $('#date_start').val('');
+    $('#time_start').val('');
+    $('#date_end').val('');
+    $('#time_end').val('');
+    $('#color').val('');
+
+    $('.colorpick > span').css({"opacity" : "0"});
+    $('.colorpick > span').removeAttr('id');
+
+    if(mode_CreateEvent == true) {
+        $(`#addEventButton`).css({"display" : ""});
+        $(`#editEventButton`).css({"display" : "none"});
+        $(`#dialogHeading`).text("Setting up your event.");
+    } else {
+        $(`#addEventButton`).css({"display" : "none"});
+        $(`#editEventButton`).css({"display" : ""});
+        $(`#dialogHeading`).text("Edit your event.");
+    }
 }
 
 //Listener for Add Event's Color Selector
@@ -367,6 +391,44 @@ function submitEventDetails() {
             url: "output/insert_new_event.php",
             type: "POST",
             data: {
+                eventTitle: eventname,
+                eventDesc: eventDesc,
+                eventDateStart: eventDateStart,
+                eventTimeStart: eventTimeStart,
+                eventDateEnd: eventDateEnd,
+                eventTimeEnd: eventTimeEnd,
+                color: color
+            },
+            success: function(data) {
+            }
+        }).done(function() {
+            console.log("Success.");
+        }).fail(function() {
+            console.log("Error occurred.");
+        }).always(function() {
+            console.log("Complete.");
+        });
+    } else {
+        alert('Please fill all the field !');
+    }
+}
+
+function updateEventDetails() {
+    let eventID = $('#event_id').val();
+    let eventname = $('#event_name').val();
+    let eventDesc = $('#event_desc').val();
+    let eventDateStart = $('#date_start').val();
+    let eventTimeStart = $('#time_start').val();
+    let eventDateEnd = $('#date_end').val();
+    let eventTimeEnd = $('#time_end').val();
+    let color  = $('#color').val();
+
+    if(eventname!="" && eventDesc!="" && eventDateStart!="" && eventTimeStart!="" && eventDateEnd!="" && eventTimeEnd!="" && color!="") {
+        $.ajax({
+            url: "output/update_event.php",
+            type: "POST",
+            data: {
+                eventID: eventID,
                 eventTitle: eventname,
                 eventDesc: eventDesc,
                 eventDateStart: eventDateStart,
@@ -456,9 +518,10 @@ function displayDatabyDay() {
     let template = 
     "\
     <tr> \
+        <td>{{[[--ID--]]}}</td> \
         <td>{{[[--time_start--]]}}</td> \
         <td>{{[[--time_end--]]}}</td> \
-        <td>{{[[--event_name--]]}}</td> \
+        <td id='eventid_{{[[--ID--]]}}'>{{[[--event_name--]]}}<div class='delete'><span class='material-icons-outlined dl'>clear</span></div><div class='edit'><span class='material-icons-outlined ed'>edit</span></div></td> \
     </tr> \
     ";
 
@@ -471,6 +534,8 @@ function displayDatabyDay() {
             let obj = JSON.parse(data);
             if(obj.length == 0) {
                 let row = template;
+                row = row.replace("{{[[--ID--]]}}","-");
+                row = row.replace("{{[[--ID--]]}}","-");
                 row = row.replace("{{[[--time_start--]]}}","-");
                 row = row.replace("{{[[--time_end--]]}}","-");
                 row = row.replace("{{[[--event_name--]]}}","No Event");
@@ -478,12 +543,16 @@ function displayDatabyDay() {
             } else {
                 for (let i = 0 ; i < obj.length ; i++) {
                     let row = template;
+                    row = row.replace("{{[[--ID--]]}}",obj[i].id);
+                    row = row.replace("{{[[--ID--]]}}",obj[i].id);
                     row = row.replace("{{[[--time_start--]]}}",obj[i].time_start.substring(0,5));
                     row = row.replace("{{[[--time_end--]]}}",obj[i].time_end.substring(0,5));
                     row = row.replace("{{[[--event_name--]]}}",obj[i].title);
                     $('#day-table tbody').append(row)
                 }
             }
+            UpdateEventListener();
+            DeleteEventListener();
         }
     }).done(function() {
         console.log("Success.");
@@ -564,8 +633,9 @@ function displayDatabyMonth() {
     let template = 
     "\
     <tr> \
+        <td>{{[[--ID--]]}}</td> \
         <td>{{[[--date_start--]]}}</td> \
-        <td>{{[[--event_name--]]}}</td> \
+        <td id='eventid_{{[[--ID--]]}}'>{{[[--event_name--]]}}<div class='delete'><span class='material-icons-outlined dl'>clear</span></div><div class='edit'><span class='material-icons-outlined ed'>edit</span></div></td> \
         <td>{{[[--time--]]}}</td> \
     </tr> \
     ";
@@ -578,6 +648,8 @@ function displayDatabyMonth() {
             let obj = JSON.parse(data);
             if(obj.length == 0) {
                 let row = template;
+                    row = row.replace("{{[[--ID--]]}}","-");
+                    row = row.replace("{{[[--ID--]]}}","-");
                     row = row.replace("{{[[--date_start--]]}}","-");
                     row = row.replace("{{[[--event_name--]]}}","No Event");
                     row = row.replace("{{[[--time--]]}}","-");
@@ -586,12 +658,16 @@ function displayDatabyMonth() {
                 for (let i = 0 ; i < obj.length ; i++) {
                     let newDateFormat = obj[i].date_start.split('-');
                     let row = template;
+                    row = row.replace("{{[[--ID--]]}}",obj[i].id);
+                    row = row.replace("{{[[--ID--]]}}",obj[i].id);
                     row = row.replace("{{[[--date_start--]]}}",newDateFormat[2]+"-"+months[parseInt(newDateFormat[1])-1]);
                     row = row.replace("{{[[--event_name--]]}}",obj[i].title);
                     row = row.replace("{{[[--time--]]}}",obj[i].time_start.substring(0,5)+"-"+obj[i].time_end.substring(0,5));
                     $('#month-table tbody').append(row);
                 }
             }
+            UpdateEventListener();
+            DeleteEventListener();
         }
     }).done(function() {
         console.log("Success.");
@@ -663,6 +739,78 @@ function displayDatabyYear() {
         console.log("Error occurred.");
     }).always(function() {
         console.log("Complete.");
+    });
+}
+
+//Listener for Edit/Update button
+function UpdateEventListener() {
+    document.querySelectorAll('.edit > span').forEach(item => {
+        item.addEventListener('click', (event) => {
+            mode_CreateEvent = false;
+            let id = event.target.parentNode.parentNode.id.substring(8);
+            $.ajax({
+                url: "output/get_event_detail.php",
+                type: "POST",
+                data: {
+                    eventID: id
+                },
+                success: function(data) {
+                    let obj = JSON.parse(data);
+                    openAddEventDialog()
+                    showExistEventDetailtoUpdate(obj)
+                }
+            }).done(function() {
+                console.log("Success.");
+            }).fail(function() {
+                console.log("Error occurred.");
+            }).always(function() {
+                console.log("Complete.");
+            });
+        })
+    });
+}
+
+function showExistEventDetailtoUpdate($eventdetail) {
+    let $id = $eventdetail[0].id;
+    $('#event_id').val($id);
+    $('#event_name').val($eventdetail[0].title);
+    $('#event_desc').val($eventdetail[0].description);
+    $('#date_start').val($eventdetail[0].date_start);
+    $('#time_start').val($eventdetail[0].time_start);
+    $('#date_end').val($eventdetail[0].date_end);
+    $('#time_end').val($eventdetail[0].time_end);
+    $('#color').val($eventdetail[0].color);
+
+    //set color check mark
+    $(`[colorName='${$eventdetail[0].color}'] > span`).css({"opacity" : "1"});
+    $(`[colorName='${$eventdetail[0].color}']`).children().attr('id','selected-color');
+}
+
+//Listener for Delete button
+function DeleteEventListener() {
+    document.querySelectorAll('.delete > span').forEach(item => {
+        item.addEventListener('click', (event) => {
+            if(confirm("Are you sure you want to delete?")) {
+                let id = event.target.parentNode.parentNode.id.substring(8);
+                $.ajax({
+                    url: "output/delete_event.php",
+                    type: "POST",
+                    data: {
+                        eventID: id
+                    },
+                    success: function(data) {
+                    }
+                }).done(function() {
+                    console.log("Success.");
+                }).fail(function() {
+                    console.log("Error occurred.");
+                }).always(function() {
+                    console.log("Complete.");
+                });
+            } else {
+                return;
+            }
+        })
     });
 }
 

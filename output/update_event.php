@@ -1,6 +1,7 @@
 <?php
     require_once('../dbconfig.php');
 
+    $eventID = $_POST['eventID'];
     $eventTitle = $_POST['eventTitle'];
     $eventDescription = $_POST['eventDesc'];
     $eventDateStart = $_POST['eventDateStart'];
@@ -14,5 +15,5 @@
     $DateSQLformat_start = date("Y-m-d", $d);
     $DateSQLformat_end = date("Y-m-d", $e);
 
-    insertNewEvent($eventTitle, $eventDescription, $DateSQLformat_start, $DateSQLformat_end, $eventTimeStart, $eventTimeEnd, $eventColor);
+    updateEvent($eventID, $eventTitle, $eventDescription, $DateSQLformat_start, $DateSQLformat_end, $eventTimeStart, $eventTimeEnd, $eventColor);
 ?>

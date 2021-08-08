@@ -140,4 +140,65 @@
         $conn->close();
         return $isSuccess;
     }
+
+    function getEventDetail($xid) {
+        $conn = createmysqlConnection();
+        $sql = "SELECT * FROM `events` WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $xid);
+        $stmt->execute();
+        $stmt->bind_result($id, $title, $description, $date_start, $date_end, $time_start, $time_end, $color, $timestamp);
+        $eventDetail = array();
+
+        while($stmt->fetch()) {
+            $eventDetail_row = array(
+                "id" => $id,
+                "title" => $title,
+                "description" => $description,
+                "date_start" => $date_start,
+                "date_end" => $date_end,
+                "time_start" => $time_start,
+                "time_end" => $time_end,
+                "color" => $color,
+                "timestamp" => $timestamp
+            );
+            array_push($eventDetail, $eventDetail_row);
+        }
+        $stmt->close();
+        $conn->close();
+        return $eventDetail;
+    }
+
+    function updateEvent($id, $eventName, $description, $datebegin, $dateend, $timebegin, $timeend, $color) {
+        $conn = createmysqlConnection();
+        $sql = "UPDATE events SET title = ?, description = ?, date_start = ?, date_end = ?, time_start = ?, time_end = ?, color = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("sssssssi",$eventName, $description, $datebegin, $dateend, $timebegin, $timeend, $color, $id);
+        $isSuccess = false;
+        if($stmt->execute() === TRUE) {
+            $isSuccess = true;
+        } else {
+            echo "Error: ".$sql."<br>".$conn->error;
+        }
+        $stmt->close();
+        $conn->close();
+        return $isSuccess;
+    }
+
+    function deleteEvent($id) {
+        $conn = createmysqlConnection();
+        $sql = "DELETE FROM `events` WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+
+        $isSuccess = false;
+        if($stmt->execute() === TRUE) {
+            $isSuccess = true;
+        } else {
+            echo "Error: ".$sql."<br>".$conn->error;
+        }
+        $stmt->close();
+        $conn->close();
+        return $isSuccess;
+    }
 ?>

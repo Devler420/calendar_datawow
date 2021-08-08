@@ -191,6 +191,11 @@
     left: 30%;
 }
 
+#dialogHeading {
+    padding-left: 4px;
+    font-weight: bold;
+}
+
 textarea {
     resize: none;
 }
@@ -276,7 +281,6 @@ fieldset > div > input[type=submit]:hover {
 }
 
 .event-tab {
-    /* background-color: gray; */
     height: 26.25rem;
     display: none;
 }
@@ -306,8 +310,20 @@ fieldset > div > input[type=submit]:hover {
     background-color: gainsboro;
 }
 
+#day-table tr:hover > td > .edit {
+    display: inline-flex;
+}
+
+#day-table tr:hover > td > .delete {
+    display: inline-flex;
+}
+
+#day-table th:nth-child(1) {
+    display: none;
+}
+
 #day-table td:nth-child(1) {
-    width: 14%;
+    display: none;
 }
 
 #day-table td:nth-child(2) {
@@ -315,8 +331,24 @@ fieldset > div > input[type=submit]:hover {
 }
 
 #day-table td:nth-child(3) {
+    width: 14%;
+}
+
+#day-table td:nth-child(4) {
     width: 72%;
     text-align: left;
+}
+
+.edit , .delete {
+    display: none;
+    float: right;
+    padding: 0 5px;
+}
+
+.dl , .ed {
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: gray;
 }
 
 /* Week-table */
@@ -351,14 +383,6 @@ fieldset > div > input[type=submit]:hover {
     width: 12.5%;
 }
 
-#week-table tr:nth-child(even) {
-    /* background-color: #f2f2f2; */
-}
-
-#week-table tr:hover {
-    /* background-color: red; */
-}
-
 /* Month-table */
 
 #month-tab {
@@ -383,17 +407,33 @@ fieldset > div > input[type=submit]:hover {
     background-color: gainsboro;
 }
 
+#month-table tr:hover > td > .edit {
+    display: inline-flex;
+}
+
+#month-table tr:hover > td > .delete {
+    display: inline-flex;
+}
+
+#month-table th:nth-child(1) {
+    display: none;
+}
+
 #month-table td:nth-child(1) {
+    display: none;
+}
+
+#month-table td:nth-child(2) {
     width: 15%;
     text-align: center;
 }
 
-#month-table td:nth-child(2) {
+#month-table td:nth-child(3) {
     width: 63%;
     text-align: left;
 }
 
-#month-table td:nth-child(3) {
+#month-table td:nth-child(4) {
     width: 22%;
     text-align: center;
 }
