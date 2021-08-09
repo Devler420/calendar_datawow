@@ -117,13 +117,15 @@ document.querySelector('.today').addEventListener("click", (event)=> {
 function addListenertoDateSelection() {
     document.querySelectorAll('.days > div').forEach(item => {
         item.addEventListener('click', (event) => {
+            let selectedDate = new Date(getSelectedDate());
+            console.log(selectedDate.getMonth())
+
             $(".full-date1").children().remove();
             $(".full-date2").children().remove();
             let mainshowdate = `<span id="xmonth"></span> <span id="xwday"></span>, <span id="xyear"></span>`;
             document.querySelector(".full-date1").innerHTML = mainshowdate;
             document.querySelector('.full-date2').innerHTML = mainshowdate;
-    
-            // console.log(event.target)
+            
             if(event.target.classList.value == "prev-date") {
                 document.querySelector('.full-date2 span#xmonth').innerHTML = months[date.getMonth()-1];
                 document.querySelector('.full-date2 span#xwday').innerHTML = event.target.innerHTML;
@@ -162,7 +164,6 @@ function addListenertoDateSelection() {
     });
 }
 
-
 //Listener for Month selection
 document.querySelectorAll('.month > div').forEach(item => {
     item.addEventListener('click', (event) => {
@@ -179,6 +180,8 @@ document.querySelectorAll('.month > div').forEach(item => {
         $(".full-date1").html($(".full-date2").html());
         loadCalendar();
         if(date.getMonth() === new Date().getMonth() && date.getFullYear() === new Date().getFullYear()) {
+            document.querySelector('.full-date1 span#xwday').innerHTML = new Date().getDate();
+            document.querySelector('.full-date2 span#xwday').innerHTML = new Date().getDate();
             loadCalendar();
         } else {
             $(document).ready(function() {
@@ -400,6 +403,15 @@ function submitEventDetails() {
                 color: color
             },
             success: function(data) {
+                if(mode_day == true) {
+                    displayDatabyDay();
+                } else if(mode_week == true) {
+                    displayDatabyWeek();
+                } else if(mode_month == true) {
+                    displayDatabyMonth();
+                } else if(mode_year == true) {
+                    displayDatabyYear();
+                }
             }
         }).done(function() {
             console.log("Success.");
@@ -408,6 +420,7 @@ function submitEventDetails() {
         }).always(function() {
             console.log("Complete.");
         });
+        closeAddEventDialog();
     } else {
         alert('Please fill all the field !');
     }
@@ -438,6 +451,15 @@ function updateEventDetails() {
                 color: color
             },
             success: function(data) {
+                if(mode_day == true) {
+                    displayDatabyDay();
+                } else if(mode_week == true) {
+                    displayDatabyWeek();
+                } else if(mode_month == true) {
+                    displayDatabyMonth();
+                } else if(mode_year == true) {
+                    displayDatabyYear();
+                }
             }
         }).done(function() {
             console.log("Success.");
@@ -446,6 +468,7 @@ function updateEventDetails() {
         }).always(function() {
             console.log("Complete.");
         });
+        closeAddEventDialog();
     } else {
         alert('Please fill all the field !');
     }
@@ -566,6 +589,13 @@ function displayDatabyDay() {
 function displayDatabyWeek() {
 
     $('#week-table td').css({'background-color' : '' , 'border-color' : ''});
+    $('#week-table td.wSUN').empty();
+    $('#week-table td.wMON').empty();
+    $('#week-table td.wTUE').empty();
+    $('#week-table td.wWED').empty();
+    $('#week-table td.wTHU').empty();
+    $('#week-table td.wFRI').empty();
+    $('#week-table td.wSAT').empty();
     let selectedDate = new Date(getSelectedDate());
     let firstWeekDay = new Date(selectedDate.getFullYear(),selectedDate.getMonth(), selectedDate.getDate()-selectedDate.getDay());
     let LastWeekDay = new Date(selectedDate.getFullYear(),selectedDate.getMonth(), selectedDate.getDate()+(6-selectedDate.getDay()));
@@ -584,6 +614,11 @@ function displayDatabyWeek() {
     </tr> \
     ";
 
+    let eventTitleTemplate = 
+    "\
+    {{[[--event_name--]]}}\
+    ";
+
     $.ajax({
         url: "output/get_data_byweek.php",
         type: "POST",
@@ -597,6 +632,8 @@ function displayDatabyWeek() {
                 let timeend = obj[i].time_end.substring(0,2);
                 let timecount = obj[i].time_end.substring(0,2) - obj[i].time_start.substring(0,2);
                 let color = obj[i].color;
+                let eventTitle = eventTitleTemplate;
+                eventTitle = eventTitle.replace("{{[[--event_name--]]}}",obj[i].title);
 
                 for(let j = 0 ; j <= timecount ; j++) {
                     let xtimestart = 0;
@@ -606,6 +643,9 @@ function displayDatabyWeek() {
                         xtimestart = "0"+(parseInt(timestart)+j);
                     }
                     $(`#${xtimestart}\\:00`).children(`.${weekdayID}`).css({"background-color":`${color}`, "border-color":`${color}`});
+                    if (j == 0) {
+                        $(`#${xtimestart}\\:00`).children(`.${weekdayID}`).append(eventTitle);
+                    }
                 }
             }
         }
@@ -756,8 +796,8 @@ function UpdateEventListener() {
                 },
                 success: function(data) {
                     let obj = JSON.parse(data);
-                    openAddEventDialog()
-                    showExistEventDetailtoUpdate(obj)
+                    openAddEventDialog();
+                    showExistEventDetailtoUpdate(obj);
                 }
             }).done(function() {
                 console.log("Success.");
@@ -799,6 +839,15 @@ function DeleteEventListener() {
                         eventID: id
                     },
                     success: function(data) {
+                        if(mode_day == true) {
+                            displayDatabyDay();
+                        } else if(mode_week == true) {
+                            displayDatabyWeek();
+                        } else if(mode_month == true) {
+                            displayDatabyMonth();
+                        } else if(mode_year == true) {
+                            displayDatabyYear();
+                        }
                     }
                 }).done(function() {
                     console.log("Success.");

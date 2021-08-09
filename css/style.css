@@ -208,13 +208,13 @@ fieldset > div > label {
     font-weight: bold;
 }
 
-fieldset > div > input[type=submit] {
+fieldset > div > input[type=button] {
     width: 100%;
     font-weight: bold;
     background-color: lightgreen;
 }
 
-fieldset > div > input[type=submit]:hover {
+fieldset > div > input[type=button]:hover {
     transition-duration: 0.1s;
     background-color: rgb(54, 230, 54);
     cursor: pointer;
@@ -376,6 +376,17 @@ fieldset > div > input[type=submit]:hover {
 #week-table td,th {
     border: 1px solid #ddd;
     padding: 0.25rem;
+    max-width: 0px;
+    max-height: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#week-table td:hover {
+    overflow: visible;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 #week-table td:nth-child(n) {

@@ -66,8 +66,8 @@
                     <input type="text" name="color" id="color" style="display: none;"/>
                 </div>
                 <div>
-                    <input type="submit" name="submit" value="Add Event" id="addEventButton" onclick="submitEventDetails();"></input>
-                    <input type="submit" name="submit" value="Edit Event" id="editEventButton" onclick="updateEventDetails();"></input>
+                    <input type="button" name="submit" value="Add Event" id="addEventButton" onclick="submitEventDetails();"></input>
+                    <input type="button" name="submit" value="Edit Event" id="editEventButton" onclick="updateEventDetails();"></input>
                 </div>
             </fieldset>
         </form>

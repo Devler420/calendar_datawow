@@ -1,11 +1,18 @@
 <?php
     function createmysqlConnection() {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "calendar_datawow";
+        // $servername = "localhost";
+        // $username = "root";
+        // $password = "";
+        // $dbname = "calendar_datawow";
+
+        $servername = "acp-db.crpkyjnpfhba.ap-southeast-1.rds.amazonaws.com";
+        $username = "devler420";
+        $password = "Bookboom";
+        $dbname = "ACPDatabase";
+        $port = "3306";
     
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        // $conn = mysqli_connect($servername, $username, $password, $dbname);
+        $conn = mysqli_connect($servername, $username, $password, $dbname, $port);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
