@@ -8,6 +8,7 @@ The events' details are stored in Cloud Database provided by Amazon Web Service 
 
 NOTES: Currently **NOT RESPONSIVE**. Please consider open in Laptop or iPad for best looking.
 
+
 **Simple GIF demonstrate the look of the calendar.**
 
 ![Demo GIF](https://github.com/Devler420/calendar_datawow/blob/main/Calendar%20GIF-downsized_large.gif)
