@@ -1,6 +1,6 @@
 **A simple web application Calendar.**
 
-Click here to try out -----> [Calendar](calendarproject.ddns.net) *Link is currently broken fixing soon
+Click here to try out -----> [Calendar](calendarproject.ddns.net)
 
 The calendar can display list of events in DAY, WEEKDAYS, MONTH, and YEAR formats. Basic CRUD functions are included.
 
